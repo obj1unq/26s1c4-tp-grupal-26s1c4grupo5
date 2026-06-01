@@ -4,9 +4,9 @@ _(Git Grupal: https://docs.google.com/presentation/d/1-o5zEUfuUT72ea8q2rk8mwHSqM
 
 ## Equipo de desarrollo
 
-- Luca, Tiziano
-- Ojeda, Matias
-- Loziscki, Esteban 
+- Luca, Tiziano         (Pak-man)
+- Ojeda, Matias         (Mapas)
+- Loziscki, Esteban     (Fantasmas)
 
 ## Capturas
 
