@@ -1,0 +1,14 @@
+import juego.*
+import wollok.game.*
+
+program PepitaGame {
+	game.title("Pak-Man") 	//Valor por defecto "Wollok Game"
+	game.height(11) 		//valor por defecto 5
+	game.width(20) 			//valor por defecto 5
+	game.cellSize(50) 		//valor por defecto 50
+	game.boardGround("fondo1.png")
+
+    juego.configurarJuego()
+
+	game.start()
+}
