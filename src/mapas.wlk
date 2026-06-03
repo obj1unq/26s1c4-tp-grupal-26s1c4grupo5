@@ -26,7 +26,7 @@ object mapa1 {
                 dibujo.get(y).get(x).dibujar(game.at(x,y))  //obtengo el dibujante de la cordenada que corresponde a la iteracion y le pido que dibuje en esa cordenada
             })
         })
-        game.addVisual("Pak-man.png")
+        // game.addVisual()
     }
 }
 

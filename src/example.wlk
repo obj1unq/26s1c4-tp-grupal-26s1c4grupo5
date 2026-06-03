@@ -1,9 +1,11 @@
-object pepita {
-  var energy = 100
+import wollok.game.*
 
-  method energy() = energy
 
-  method fly(minutes) {
-    energy = energy - minutes * 3
-  }
+class Fantasma {
+    var property positioon = game.at(0, 0)
+
+    method image() = "fantasmita-rojo-pacman.png"
 }
+
+
+
