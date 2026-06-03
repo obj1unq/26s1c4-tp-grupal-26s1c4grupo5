@@ -1,6 +1,10 @@
 import wollok.game.*
 import mapas.*
+<<<<<<< HEAD
 import pak-man.*
+=======
+import example.*
+>>>>>>> fondo
 
 object juego{    
     var property mapaActual = mapa1
@@ -15,7 +19,11 @@ object juego{
     }
 
     method configurarJuego(){
+<<<<<<< HEAD
         self.configurarTeclas()
+=======
+        
+>>>>>>> fondo
         self.crearMapa()
 //	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
         self.movimientoDePak()
@@ -37,18 +45,21 @@ object juego{
     }
 }
 
-object _{                       // coloco una moneda en el mapa.
-    method image() = "moneda.png"
-    var property position = game.at(0,0)
+object c{                       // coloco una moneda en el mapa.
     method dibujar(_position) {
-        // self.position(_position)        // Ubico la moneda en su pocicion final.
-        // game.addVisual(self)
+        const coins = new Moneda (position = _position)
+        game.addVisual(coins)
     }
 }
 
+class Moneda {
+    var property position = game.at(0,0)
+    method image() = "monedaChica.png"
+}
+
 object m{
-    method dibujar(position) {  // coloco un muro en el mapa.
-        const muro = new Muro(position=position)    // crear una clase para los muros.
+    method dibujar(_position) {  // coloco un muro en el mapa.
+        const muro = new Muro(position = _position)    // crear una clase para los muros.
         juego.agregarObstaculo(muro)
         game.addVisual(muro)
     }
@@ -66,9 +77,15 @@ object p{                       // le digo al Pak-Man su posicion en el mapa.
     }
 }
 
-object f{                       // coloco un fantasma en el mapa.
+object _ {
     method dibujar(position) {
-        const fantasma = new Muro(position=position)
+      
+    }
+}
+
+object f{                       // coloco un fantasma en el mapa.
+    method dibujar(_position) {
+        const fantasma = new Fantasma(position = _position)
         game.addVisual(fantasma)
     }
 }

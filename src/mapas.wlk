@@ -1,19 +1,18 @@
 import wollok.game.*
 import juego.*
 
-
 object mapa1 {
     const dibujo =[
         [ m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ],
-        [ m, _, _, _, _, m, _, _, _, _, _, _, _, _, m, _, _, _, _, m ],
-        [ m, _, m, m, _, m, _, m, m, m, m, m, m, _, m, _, m, m, _, m ],
-        [ m, _, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m, _, m ],
-        [ m, _, m, _, m, m, _, m, m, _, _, m, m, _, m, m, _, m, _, m ],
-        [ m, _, _, _, _, _, _, m, f, f, f, f, m, _, _, _, _, _, _, m ],
-        [ m, _, m, _, m, m, _, m, m, m, m, m, m, _, m, m, _, m, _, m ],
-        [ m, _, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m, _, m ],
-        [ m, _, m, m, _, m, _, m, m, m, m, m, m, _, m, _, m, m, _, m ],
-        [ m, _, _, _, _, m, _, _, _, p, _, _, _, _, m, _, _, _, _, m ],
+        [ m, c, c, c, c, m, c, c, c, c, c, c, c, c, m, c, c, c, c, m ],
+        [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
+        [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
+        [ m, c, m, c, m, m, c, m, m, c, c, m, m, c, m, m, c, m, c, m ],
+        [ m, c, c, c, c, c, c, m, _, _, _, _, m, c, c, c, c, c, c, m ],
+        [ m, c, m, c, m, m, c, m, m, m, m, m, m, c, m, m, c, m, c, m ],
+        [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
+        [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
+        [ m, c, c, c, c, m, c, c, c, m, c, c, c, c, m, c, c, c, c, m ],
         [ m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ]
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
 
