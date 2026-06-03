@@ -1,5 +1,6 @@
 import wollok.game.*
 import mapas.*
+import pak-man.*
 
 object juego{    
     var property mapaActual = mapa1
@@ -14,20 +15,25 @@ object juego{
     }
 
     method configurarJuego(){
-        // self.configurarTeclas()
+        self.configurarTeclas()
         self.crearMapa()
 //	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
+        self.movimientoDePak()
     }
 
     method configurarTeclas(){
-	    // keyboard.left ().onPressDo({pak.mover(izquierda)})
-	    // keyboard.right().onPressDo({pak.mover(derecha)})
-	    // keyboard.up   ().onPressDo({pak.mover(arriba)})
-	    // keyboard.down ().onPressDo({pak.mover(abajo)})
+	    keyboard.left ().onPressDo( {pak.direccionConst(izquierda)})
+	    keyboard.right().onPressDo( {pak.direccionConst(derecha)  })
+	    keyboard.up   ().onPressDo( {pak.direccionConst(arriba)   })
+	    keyboard.down ().onPressDo( {pak.direccionConst(abajo)    })
     }
 
     method crearMapa(){
         mapaActual.construir()
+    }
+
+    method movimientoDePak(){
+        game.onTick(300, "movimiento constante de pak", {pak.mover()})
     }
 }
 
@@ -55,7 +61,8 @@ class Muro {
 
 object p{                       // le digo al Pak-Man su posicion en el mapa.
     method dibujar(position) {  
-        // pak.position(position)
+        pak.position(position)
+        game.addVisual(pak)
     }
 }
 
