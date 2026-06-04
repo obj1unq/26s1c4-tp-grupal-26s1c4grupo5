@@ -1,10 +1,7 @@
 import wollok.game.*
 import mapas.*
-<<<<<<< HEAD
 import pak-man.*
-=======
 import example.*
->>>>>>> fondo
 
 object juego{    
     var property mapaActual = mapa1
@@ -19,11 +16,8 @@ object juego{
     }
 
     method configurarJuego(){
-<<<<<<< HEAD
         self.configurarTeclas()
-=======
         
->>>>>>> fondo
         self.crearMapa()
 //	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
         self.movimientoDePak()
