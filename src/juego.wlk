@@ -2,6 +2,7 @@ import wollok.game.*
 import mapas.*
 import pak-man.*
 import example.*
+import fantasma.*
 
 object juego{    
     var property mapaActual = mapa1
@@ -21,6 +22,9 @@ object juego{
         self.crearMapa()
 //	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
         self.movimientoDePak()
+        
+        busqueda.agregar(blinky)
+        busqueda.comenzar()
     }
 
     method configurarTeclas(){
@@ -80,6 +84,6 @@ object _ {
 object f{                       // coloco un fantasma en el mapa.
     method dibujar(_position) {
         const fantasma = new Fantasma(position = _position)
-        game.addVisual(fantasma)
+        game.addVisual(blinky)
     }
 }
