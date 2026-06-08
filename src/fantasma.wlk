@@ -1,8 +1,9 @@
 import pak-man.*
 import direcciones.*
 import wollok.game.*
+import juego.*
 class Fantasma{
-    var property position = game.at(5,3)
+    var property position = game.at(12,6)
     method image()
     method avanzar()
 }
@@ -20,13 +21,16 @@ object blinky inherits Fantasma{
 class AEstrella{
     var property posActual
     const presa = pak
-    const nodoPresa = new Nodo(position = presa.position()) 
     var property listaAbierta = #{}
     var property listaCerrada = #{}
 
     method posPresa() = presa.position()
+    method siEsDentroDelMapaYNohayObstaculo(posicion){
+        return tablero.dentro(posicion) and !juego.hayObstaculo(posicion)
+    }
+    
     method buscando(){
-        const actual = new Nodo(position = posActual, costoH = self.heuristica(posActual.x(), posActual.y()))
+        const actual = new Nodo(position = posActual, costoG = 0, costoH = self.heuristica(posActual.x(), posActual.y()))
         listaAbierta.add(actual)
         return self.hastaEncontrar()
     }
@@ -35,24 +39,56 @@ class AEstrella{
             return null
         }
         const actual = listaAbierta.min({nodo => nodo.costoF()})
-        if(!(actual.position() == nodoPresa.position())){
+        const parriba    =    arriba1.siguiente(actual.position())
+        const pderecha   =   derecha1.siguiente(actual.position())
+        const pabajo     =     abajo1.siguiente(actual.position())
+        const pizquierda = izquierda1.siguiente(actual.position())
+        if(actual.position() != presa.position()){
             const costoPosible = actual.costoG() + 1
-            self.tryando(listaAbierta, listaCerrada, actual, costoPosible, arriba   .siguiente(actual.position()))
-            self.tryando(listaAbierta, listaCerrada, actual, costoPosible, derecha  .siguiente(actual.position()))
-            self.tryando(listaAbierta, listaCerrada, actual, costoPosible, abajo    .siguiente(actual.position()))
-            self.tryando(listaAbierta, listaCerrada, actual, costoPosible, izquierda.siguiente(actual.position()))
+            if (self.siEsDentroDelMapaYNohayObstaculo(parriba)){
+                self.revisandoVecino(actual, costoPosible, parriba)
+            }
+            if (self.siEsDentroDelMapaYNohayObstaculo(pderecha)){
+                self.revisandoVecino(actual, costoPosible, pderecha)
+            }
+            if (self.siEsDentroDelMapaYNohayObstaculo(pabajo)){
+                self.revisandoVecino(actual, costoPosible, pabajo)
+            }
+            if (self.siEsDentroDelMapaYNohayObstaculo(pizquierda)){
+                self.revisandoVecino(actual, costoPosible, pizquierda)
+            }
             listaCerrada.add(actual)
             listaAbierta.remove(actual)
             return self.hastaEncontrar()
         } return self.encontrando(actual)
     }
-    
-    method encontrando(nodo){
-        if(nodo.nodoPadre() != null && nodo.nodoPadre().costoG() != 0){
-            return self.encontrando(nodo.nodoPadre())
-        } else{
-            return nodo.position()
+    method revisandoVecino(nodoAComparar, cantidadG, direccion){    
+        const enListaCerrada = listaCerrada.findOrDefault({nodo => nodo.position() == direccion}, null)
+        const enListaAbierta = listaAbierta.findOrDefault({nodo => nodo.position() == direccion}, null)
+        if (enListaCerrada != null){
+            if(enListaCerrada.costoG() > cantidadG){
+                self.cambiarGyPadre(enListaCerrada, cantidadG, nodoAComparar)
+                listaAbierta.add(enListaCerrada)
+                listaCerrada.remove(enListaCerrada)
+            }
+        
+        } else if (enListaAbierta != null){
+            if(enListaAbierta.costoG() > cantidadG){
+                self.cambiarGyPadre(enListaAbierta, cantidadG, nodoAComparar)
+            }
+        } else {
+            const nuevoNodo = self.crearNodo(direccion, cantidadG, self.heuristica(direccion.x(), direccion.y()), nodoAComparar)
+            listaAbierta.add(nuevoNodo)
         }
+    }    
+    method encontrando(nodo){
+        if (nodo.nodoPadre() == null) {
+            return nodo.position() 
+        }
+        if (nodo.nodoPadre().position() == posActual) {
+            return nodo.position() 
+        }
+        return self.encontrando(nodo.nodoPadre())
     }
     method cambiarGyPadre(nodo, nuevoG, nuevoPadre){
         nodo.costoG(nuevoG)
@@ -61,38 +97,18 @@ class AEstrella{
     method crearNodo(pos, g, h, p){
         return new Nodo(position = pos, costoG = g, costoH = h, nodoPadre = p)
     }
-    method tryando(setNodos, setNodosCerrados, nodoAComparar, cantidadG, direccion){
-        try {
-            const nodoABuscar = setNodos.find({nodo => nodo.position() == direccion})
-                
-            if (nodoABuscar.costoG() > cantidadG){
-                self.cambiarGyPadre(nodoABuscar, cantidadG, nodoAComparar)
-            }
-        } catch e : ElementNotFoundException  {
-            try {const nodoABuscal = setNodosCerrados.find({nodo => nodo.position() == direccion})
-                if (nodoABuscal.costoG() > cantidadG){
-                    self.cambiarGyPadre(nodoABuscal, cantidadG, nodoAComparar)
-                    setNodos.add(nodoABuscal)
-                    setNodosCerrados.remove(nodoABuscal)
-                }
-            } catch e : ElementNotFoundException {
-                setNodos.add(self.crearNodo(direccion, nodoAComparar.costoG() + 1, self.heuristica(direccion.x(), direccion.y()), nodoAComparar))
-            }
-        }
-    }
-    method heuristica(posNX, posNY) = (posNX - nodoPresa.x()).abs() + (posNY - nodoPresa.y()).abs()
+    method heuristica(posNX, posNY) = (posNX - presa.position().x()).abs() + (posNY - presa.position().y()).abs()
 }
 
 class Nodo{
     const position 
-    var property costoG = 0
-    const costoH = 0
+    var property costoG
+    const costoH
     var property nodoPadre = null
-    method position() = position
+    method position()  = position
     method nodoPadre() = nodoPadre
-    method costoF() = costoG + costoH
-    method x() = position.x()
-    method y() = position.y()
+    method costoH()    = costoH
+    method costoF()    = costoG + costoH
 }
 
 object busqueda {

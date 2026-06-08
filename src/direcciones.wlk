@@ -6,25 +6,25 @@ object tablero {
     }
 }
 
-object izquierda {
+object izquierda1 {
     method siguiente(position) {
         return position.left(1)
     }
 }
-object derecha {
+object derecha1 {
     method siguiente(position) {
         return position.right(1)
         
     }
 }
 
-object abajo {
+object abajo1 {
     method siguiente(position) {
         return position.down(1)
     }
 }
 
-object arriba {
+object arriba1 {
     method siguiente(position) {
         return position.up(1)
     }

@@ -52,7 +52,7 @@ object c{                       // coloco una moneda en el mapa.
 
 class Moneda {
     var property position = game.at(0,0)
-    method image() = "monedaChica.png"
+    method image() = "monedaChicaSinFondo.png"
 }
 
 object m{

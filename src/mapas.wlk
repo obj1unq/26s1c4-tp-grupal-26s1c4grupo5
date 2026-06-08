@@ -8,11 +8,11 @@ object mapa1 {
         [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
         [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
         [ m, c, m, c, m, m, c, m, m, c, c, m, m, c, m, m, c, m, c, m ],
-        [ m, c, c, c, c, c, c, m, _, _, _, _, m, c, c, c, c, c, c, m ],
+        [ m, c, c, c, c, c, c, m, _, _, _, f, m, c, c, c, c, c, c, m ],
         [ m, c, m, c, m, m, c, m, m, m, m, m, m, c, m, m, c, m, c, m ],
         [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
         [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
-        [ m, c, c, c, c, m, c, c, c, m, c, c, c, c, m, c, c, c, c, m ],
+        [ m, c, c, c, c, m, c, c, c, p, c, c, c, c, m, c, c, c, c, m ],
         [ m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ]
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
 

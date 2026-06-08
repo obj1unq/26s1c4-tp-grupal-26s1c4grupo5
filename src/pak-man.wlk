@@ -1,10 +1,10 @@
 import juego.*
 object pak {
 
-    var property position = game.at(0,0)
+    var property position = game.at(10,2)
     var property direccionConst = quieto
 
-    method image() = "pak-man.png"
+    method image() = "pakman3.png"
 
 
     method mover(){
