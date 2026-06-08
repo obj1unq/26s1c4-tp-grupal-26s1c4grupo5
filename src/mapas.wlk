@@ -8,7 +8,7 @@ object mapa1 {
         [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
         [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
         [ m, c, m, c, m, m, c, m, m, c, c, m, m, c, m, m, c, m, c, m ],
-        [ m, c, c, c, c, c, c, m, _, _, _, _, m, c, c, c, c, c, c, m ],
+        [ m, c, c, c, c, c, c, m, _, _, _, f, m, c, c, c, c, c, c, m ],
         [ m, c, m, c, m, m, c, m, m, m, m, m, m, c, m, m, c, m, c, m ],
         [ m, c, m, c, c, c, c, c, c, c, c, c, c, c, c, c, c, m, c, m ],
         [ m, c, m, m, c, m, c, m, m, m, m, m, m, c, m, c, m, m, c, m ],
