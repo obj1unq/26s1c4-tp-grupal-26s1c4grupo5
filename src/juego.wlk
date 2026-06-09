@@ -1,7 +1,6 @@
 import wollok.game.*
 import mapas.*
 import pak-man.*
-import example.*
 import fantasma.*
 
 object juego{    
@@ -20,7 +19,7 @@ object juego{
         self.configurarTeclas()
         
         self.crearMapa()
-//	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
+	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         self.movimientoDePak()
         
         busqueda.agregar(blinky)
@@ -28,10 +27,10 @@ object juego{
     }
 
     method configurarTeclas(){
-	    keyboard.left ().onPressDo( {pak.direccionConst(izquierda)})
-	    keyboard.right().onPressDo( {pak.direccionConst(derecha)  })
-	    keyboard.up   ().onPressDo( {pak.direccionConst(arriba)   })
-	    keyboard.down ().onPressDo( {pak.direccionConst(abajo)    })
+	    keyboard.left ().onPressDo({pak.cambiarOrientacionSiPuede(izquierda)})
+	    keyboard.right().onPressDo({pak.cambiarOrientacionSiPuede(derecha)  })
+	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
+	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
     }
 
     method crearMapa(){
@@ -52,7 +51,14 @@ object c{                       // coloco una moneda en el mapa.
 
 class Moneda {
     var property position = game.at(0,0)
+    const valor = 10
     method image() = "monedaChica.png"
+
+    method colisionar(pak){
+        console.println("Puntos " + pak.puntos())
+        game.removeVisual(self)
+        pak.sumarPuntos(valor)
+    }
 }
 
 object m{
