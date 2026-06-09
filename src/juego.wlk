@@ -19,24 +19,25 @@ object juego{
         self.configurarTeclas()
         
         self.crearMapa()
-//	    game.onCollideDo(pak, {algo => algo.colisionar(pak)}) // asumo que pak es el pak-man, se tiene que cambiar despues.
+	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         self.movimientoDePak()
-        
+        /*
         busqueda.agregar(blinky)
         busqueda.comenzar()
+        */
     }
 
     method configurarTeclas(){
-	    keyboard.left ().onPressDo( {pak.direccionConst(izquierda)})
-	    keyboard.right().onPressDo( {pak.direccionConst(derecha)  })
-	    keyboard.up   ().onPressDo( {pak.direccionConst(arriba)   })
-	    keyboard.down ().onPressDo( {pak.direccionConst(abajo)    })
+	    keyboard.left ().onPressDo({pak.cambiarOrientacionSiPuede(izquierda)})
+	    keyboard.right().onPressDo({pak.cambiarOrientacionSiPuede(derecha)  })
+	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
+	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
     }
 
     method crearMapa(){
         mapaActual.construir()
     }
-
+    
     method movimientoDePak(){
         game.onTick(300, "movimiento constante de pak", {pak.mover()})
     }
@@ -51,7 +52,14 @@ object c{                       // coloco una moneda en el mapa.
 
 class Moneda {
     var property position = game.at(0,0)
+    const valor = 10
     method image() = "monedaChica.png"
+
+    method colisionar(pak){
+        console.println("Puntos " + pak.puntos())
+        game.removeVisual(self)
+        pak.sumarPuntos(valor)
+    }
 }
 
 object m{
@@ -78,8 +86,14 @@ object _ {
     method dibujar(position) {}
 }
 
+/*
 object f{                       // coloco un fantasma en el mapa.
     method dibujar(_position) {
+<<<<<<< HEAD
+=======
+        const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
+>>>>>>> ed5470904f4fdae7f95ea6a894d83666e8bc761e
         game.addVisual(blinky)
     }
 }
+*/

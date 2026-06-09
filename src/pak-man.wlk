@@ -1,49 +1,67 @@
 import juego.*
 object pak {
 
-    var property position = game.at(10,2)
-    var property direccionConst = quieto
+    var property position = game.at(0, 0)
+    var property orientacionConst = quieto
+    var property puntos = 0
 
-    method image() = "pakman3.png"
+    method image() = "pak-" + orientacionConst.nombreDir() + ".png"
 
+    method cambiarOrientacionSiPuede(futuraDireccion){
 
-    method mover(){
-        const siguiente = direccionConst.siguiente(position)
-
-        if (!juego.hayObstaculo(siguiente)){
-            position = siguiente
+        if (self.puedeIr(futuraDireccion)){
+          orientacionConst = futuraDireccion
         }
     }
-}
 
+    method mover(){
+
+        if (self.puedeIr(orientacionConst)){
+            position = orientacionConst.siguiente(position)
+        }
+    }
+
+    method puedeIr(direccion) = (!juego.hayObstaculo(direccion.siguiente(position)))
+
+    /*
+    method morir(){
+      
+      if (self.vidas() > 1){
+          self.reaparecer()
+        }
+        juego.perder()
+        puntos = 0
+    }
+    */
+
+    method sumarPuntos(cantidad){ puntos += cantidad}
+}
 object quieto{
 
     method siguiente(position) = position
+      method nombreDir() = "derecha"
+
 }
+
 object derecha {
-  method siguiente(position) {
-    if (position.x() >= game.width() - 1) self.error("Estás en el límite del mapa")
-    return position.right(1)
-  }
+  method siguiente(position) { return position.right(1) }
+    method nombreDir() = "derecha"
+
 }
 
 object abajo {
-  method siguiente(position) {
-    if (position.y() <= 0) self.error("Estás en el límite del mapa")
-    return position.down(1)
-  }
+  method siguiente(position) { return position.down(1) }
+  method nombreDir() = "abajo"
 }
 
 object arriba {
-  method siguiente(position) {
-    if (position.y() >= game.height() - 1) self.error("Estás en el límite del mapa")
-    return position.up(1)
-  }
+  method siguiente(position) { return position.up(1) }
+    method nombreDir() = "arriba"
+
 }
 
 object izquierda {
-    method siguiente(position) {
-        if (position.x() <= 0) self.error( "Estás en el límite del mapa")
-        return position.left(1)
-    }
+    method siguiente(position) { return position.left(1) }
+      method nombreDir() = "izquierda"
+
 }
