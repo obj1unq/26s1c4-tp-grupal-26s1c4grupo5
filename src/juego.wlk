@@ -1,7 +1,6 @@
 import wollok.game.*
 import mapas.*
 import pak-man.*
-import example.*
 import fantasma.*
 
 object juego{    
@@ -81,7 +80,6 @@ object _ {
 
 object f{                       // coloco un fantasma en el mapa.
     method dibujar(_position) {
-        const fantasma = new Fantasma(position = _position)
         game.addVisual(blinky)
     }
 }
