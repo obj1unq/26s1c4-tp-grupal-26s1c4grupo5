@@ -11,8 +11,8 @@ class Fantasma{
 object blinky inherits Fantasma{
     override method image() = "blinky.png"
     
+    const algt = new AEstrella(posActual = game.at(self.position().x(), self.position().y()))
     override method avanzar() {
-        const algt = new AEstrella(posActual = game.at(self.position().x(), self.position().y()))
         self.position(algt.buscando())
     }
 

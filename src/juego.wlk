@@ -53,7 +53,7 @@ object c{                       // coloco una moneda en el mapa.
 class Moneda {
     var property position = game.at(0,0)
     const valor = 10
-    method image() = "monedaChica.png"
+    method image() = "monedaChicaSinFondo.png"
 
     method colisionar(pak){
         console.println("Puntos " + pak.puntos())
@@ -72,7 +72,7 @@ object m{
 
 class Muro {
     var property position = game.at(0,0)
-    method image() = "Tierra.png"
+    method image() = juego.mapaActual().muro()
 }
 
 object p{                       // le digo al Pak-Man su posicion en el mapa.
@@ -86,14 +86,20 @@ object _ {
     method dibujar(position) {}
 }
 
-/*
+
 object f{                       // coloco un fantasma en el mapa.
+    //const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
     method dibujar(_position) {
-<<<<<<< HEAD
-=======
-        const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
->>>>>>> ed5470904f4fdae7f95ea6a894d83666e8bc761e
         game.addVisual(blinky)
     }
 }
-*/
+
+class Teletrasportador {
+    var property position = game.at(0, 0)
+}
+
+object t {
+    method dibujar(_position) {
+        const portal = new Teletrasportador (position = _position)
+    }
+}

@@ -3,12 +3,10 @@ import wollok.game.*
 
 
 program PakManGame {
-	game.title("Pak-Man") 	
-	game.height(11) 		
-	game.width(20) 			
+	game.title("Pak-Man")	
 	game.cellSize(50) 		
     juego.configurarJuego()
-	game.boardGround("fondo1.png")
+	game.boardGround(juego.mapaActual().fondo())
 
 	game.start()
 }
