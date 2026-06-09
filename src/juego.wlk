@@ -78,9 +78,7 @@ object p{                       // le digo al Pak-Man su posicion en el mapa.
 }
 
 object _ {
-    method dibujar(position) {
-      
-    }
+    method dibujar(position) {}
 }
 
 object f{                       // coloco un fantasma en el mapa.
