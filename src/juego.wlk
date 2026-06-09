@@ -21,9 +21,10 @@ object juego{
         self.crearMapa()
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         self.movimientoDePak()
-        
+        /*
         busqueda.agregar(blinky)
         busqueda.comenzar()
+        */
     }
 
     method configurarTeclas(){
@@ -36,7 +37,7 @@ object juego{
     method crearMapa(){
         mapaActual.construir()
     }
-
+    
     method movimientoDePak(){
         game.onTick(300, "movimiento constante de pak", {pak.mover()})
     }
@@ -85,9 +86,11 @@ object _ {
     method dibujar(position) {}
 }
 
+/*
 object f{                       // coloco un fantasma en el mapa.
     method dibujar(_position) {
-        const fantasma = new Fantasma(position = _position)
+        const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
         game.addVisual(blinky)
     }
 }
+*/
