@@ -43,7 +43,7 @@ object juego{
     }
 }
 
-object c{                       // coloco una moneda en el mapa.
+object c inherits Moneda{                       // coloco una moneda en el mapa.
     method dibujar(_position) {
         const coins = new Moneda (position = _position)
         game.addVisual(coins)
@@ -62,7 +62,7 @@ class Moneda {
     }
 }
 
-object m{
+object m inherits Muro{
     method dibujar(_position) {  // coloco un muro en el mapa.
         const muro = new Muro(position = _position)    // crear una clase para los muros.
         juego.agregarObstaculo(muro)
@@ -80,10 +80,12 @@ object p{                       // le digo al Pak-Man su posicion en el mapa.
         pak.position(position)
         game.addVisual(pak)
     }
+    method image() = pak.image()
 }
 
 object _ {
     method dibujar(position) {}
+    method image() = ""
 }
 
 
