@@ -27,4 +27,17 @@ describe "Evaluando mapa1"{
     assert.equals(29, mapa2.dibujo().size())
     assert.equals(28, mapa2.dibujo().anyOne().size())
     }
+    test "mapa1 tiene la cantidad correcta de c" {
+    var cantidadDeC = 0
+
+    mapa1.dibujo().forEach { fila =>
+        fila.forEach { celda =>
+            if (celda.image() == "monedaChicaSinFondo.png") {
+                cantidadDeC += 1
+            }
+        }
+    }
+    assert.equals(101, cantidadDeC)
+    }
+    
 }
