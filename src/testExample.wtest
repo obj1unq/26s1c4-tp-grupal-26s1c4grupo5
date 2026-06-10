@@ -1,0 +1,30 @@
+import wollok.game.*
+import juego.*
+import mapas.*
+
+describe "Evaluando mapa1"{
+    
+    test "configura ancho y alto segun el diseño" {
+    const mapa = new Mapa(muro = "", fondo = "")
+
+    const diseño = [
+        [_, _, _],
+        [_, _, _]
+    ]
+
+    mapa.construir(diseño)
+
+    assert.equals(2, game.height())
+    assert.equals(3, game.width())
+    }
+
+    test "mapa1 tiene las dimensiones esperadas" {
+    assert.equals(11, mapa1.dibujo().size())
+    assert.equals(20, mapa1.dibujo().anyOne().size())
+    }
+    
+    test "mapa2 tiene las dimensiones esperadas" {
+    assert.equals(29, mapa2.dibujo().size())
+    assert.equals(28, mapa2.dibujo().anyOne().size())
+    }
+}
