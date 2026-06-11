@@ -3,7 +3,7 @@ import mapas.*
 import pak-man.*
 import fantasma.*
 
-object juego{    
+object juego {    
     var property mapaActual = mapa1
     const obstaculos = #{}
 
@@ -11,8 +11,15 @@ object juego{
         obstaculos.add(obstaculo)
     }
 
-    method hayObstaculo(posicion){
-        return obstaculos.any({ obstaculo => obstaculo.position() == posicion})
+    method hayObstaculo(posicion) =  obstaculos.any({ obstaculo => obstaculo.position() == posicion})
+
+    method verificarCambioDeMapa() {        // Por ahora solo sirve para cambiar del mapa1 al 2.
+        if (pak.puntos() == 1000) {
+            mapaActual = asignarMapa
+            game.clear()
+            obstaculos.clear()
+            self.configurarJuego()
+        }
     }
 
     method configurarJuego(){
@@ -43,7 +50,7 @@ object juego{
     }
 }
 
-object c inherits Moneda{                       // coloco una moneda en el mapa.
+object c {                       // coloco una moneda en el mapa.
     method dibujar(_position) {
         const coins = new Moneda (position = _position)
         game.addVisual(coins)
@@ -59,10 +66,11 @@ class Moneda {
         console.println("Puntos " + pak.puntos())
         game.removeVisual(self)
         pak.sumarPuntos(valor)
+       juego.verificarCambioDeMapa()
     }
 }
 
-object m inherits Muro{
+object m {
     method dibujar(_position) {  // coloco un muro en el mapa.
         const muro = new Muro(position = _position)    // crear una clase para los muros.
         juego.agregarObstaculo(muro)
@@ -75,21 +83,19 @@ class Muro {
     method image() = juego.mapaActual().muro()
 }
 
-object p{                       // le digo al Pak-Man su posicion en el mapa.
+object p {                       // le digo al Pak-Man su posicion en el mapa.
     method dibujar(position) {  
         pak.position(position)
         game.addVisual(pak)
     }
-    method image() = pak.image()
 }
 
 object _ {
     method dibujar(position) {}
-    method image() = ""
 }
 
 
-object f{                       // coloco un fantasma en el mapa.
+object f {                       // coloco un fantasma en el mapa.
     //const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
     method dibujar(_position) {
         game.addVisual(blinky)

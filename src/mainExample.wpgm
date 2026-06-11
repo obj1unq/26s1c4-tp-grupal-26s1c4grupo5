@@ -4,6 +4,8 @@ import wollok.game.*
 
 program PakManGame {
 	game.title("Pak-Man")	
+	game.height(29) //configuro el alto segun la cantidad de filas del dibujo
+    game.width(28) //configuro el ancho segun la cantidad de columnas del dibujo
 	game.cellSize(50) 		
     juego.configurarJuego()
 	game.boardGround(juego.mapaActual().fondo())

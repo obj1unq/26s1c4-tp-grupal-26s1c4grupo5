@@ -4,50 +4,48 @@ import mapas.*
 import pak-man.*
 
 describe "Obstaculos" {
-    test "colisionar con moneda suma 10 puntos" {
+  test "colisionar con moneda suma 10 puntos" {
     const moneda = new Moneda()
-
+    
     moneda.colisionar(pak)
-
+    
     assert.equals(10, pak.puntos())
     console.println("Puntos " + pak.puntos())
-    }
-
-    test "agregar obstaculo lo registra en el juego" {
-        const muro = new Muro(position = game.at(3, 4))
-
-        juego.agregarObstaculo(muro)
-
-        assert.that(juego.hayObstaculo(game.at(3, 4)))
-    }
-
-    test "no hay obstaculo en posicion vacia" {
+  }
+  
+  test "agregar obstaculo lo registra en el juego" {
+    const muro = new Muro(position = game.at(3, 4))
+    
+    juego.agregarObstaculo(muro)
+    
+    assert.that(juego.hayObstaculo(game.at(3, 4)))
+  }
+  
+  test "no hay obstaculo en posicion vacia" {
     assert.notThat(juego.hayObstaculo(game.at(10, 9)))
-    }
-
-    test "muro usa la imagen del mapa actual" {
+  }
+  
+  test "muro usa la imagen del mapa actual" {
+    // Capaz se puede sacar
     juego.mapaActual(mapa1)
-
+    
     const muro = new Muro()
-
+    
     assert.equals("Tierra.png", muro.image())
-    }
-
-    test "casillero vacio no tiene imagen" {
-    assert.equals("", _.image())
-    }
-
-    test "puede cambiar el mapa actual" {
+  }
+  
+  
+  test "puede cambiar el mapa actual" {
     juego.mapaActual(mapa2)
-
+    
     assert.equals(mapa2, juego.mapaActual())
-    }
-
-    test "mapa1 agrega obstaculos al construirse" {
+  }
+  
+  test "mapa1 agrega obstaculos al construirse" {
     juego.mapaActual(mapa1)
-
+    
     mapa1.construir()
-
-    assert.that(juego.hayObstaculo(game.at(0,0)))
-    }
+    
+    assert.that(juego.hayObstaculo(game.at(0, 0)))
+  }
 }
