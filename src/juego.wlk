@@ -28,6 +28,7 @@ object juego {
         self.crearMapa()
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         self.movimientoDePak()
+        game.addVisual(marcador)
         /*
         busqueda.agregar(blinky)
         busqueda.comenzar()
@@ -66,7 +67,7 @@ class Moneda {
         console.println("Puntos " + pak.puntos())
         game.removeVisual(self)
         pak.sumarPuntos(valor)
-       juego.verificarCambioDeMapa()
+        juego.verificarCambioDeMapa()
     }
 }
 
@@ -87,6 +88,7 @@ object p {                       // le digo al Pak-Man su posicion en el mapa.
     method dibujar(position) {  
         pak.position(position)
         game.addVisual(pak)
+        //pak.posicionInicial(position)
     }
 }
 
@@ -110,4 +112,13 @@ object t {
     method dibujar(_position) {
         const portal = new Teletrasportador (position = _position)
     }
+}
+
+object marcador {
+
+    method position() = game.at(1, 10)
+
+    method text() = "Puntos: " + pak.puntos().toString()
+
+    method textColor() = "000080FF" //azulOscuro
 }
