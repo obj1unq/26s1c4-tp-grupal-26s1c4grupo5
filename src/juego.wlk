@@ -4,7 +4,7 @@ import pak-man.*
 import fantasma.*
 
 object juego {    
-    var property mapaActual = mapa3
+    var property mapaActual = mapa1
     const obstaculos = #{}
 
     method agregarObstaculo(obstaculo){

@@ -41,10 +41,10 @@ describe "Obstaculos" {
     assert.equals(mapa2, juego.mapaActual())
   }
   
-  test "mapa1 agrega obstaculos al construirse" {
-    juego.mapaActual(mapa1)
+  test "mapa3 agrega obstaculos al construirse" {
+    juego.mapaActual(mapa3)
     
-    mapa1.construir()
+    juego.crearMapa()
     
     assert.that(juego.hayObstaculo(game.at(0, 0)))
   }
