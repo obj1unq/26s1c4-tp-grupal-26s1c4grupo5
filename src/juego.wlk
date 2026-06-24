@@ -14,8 +14,8 @@ object juego {
     method hayObstaculo(posicion) =  obstaculos.any({ obstaculo => obstaculo.position() == posicion})
 
     method verificarCambioDeMapa() {        // Por ahora solo sirve para cambiar del mapa1 al 2.
-        if (pak.puntos() == 1000) {
-            mapaActual = asignarMapa
+        if (pak.puntos() == 100) {
+            mapaActual = mapa2
             game.clear()
             obstaculos.clear()
             self.configurarJuego()
@@ -29,6 +29,7 @@ object juego {
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         self.movimientoDePak()
         game.addVisual(marcador)
+        game.onTick(1000, "Revisando si se completo el nivel", {self.verificarCambioDeMapa()})
         /*
         busqueda.agregar(blinky)
         busqueda.comenzar()
@@ -41,7 +42,6 @@ object juego {
 	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
 	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
     }
-
     method crearMapa(){
         mapaActual.construir()
     }
@@ -67,7 +67,6 @@ class Moneda {
         console.println("Puntos " + pak.puntos())
         game.removeVisual(self)
         pak.sumarPuntos(valor)
-        juego.verificarCambioDeMapa()
     }
 }
 
@@ -104,13 +103,25 @@ object f {                       // coloco un fantasma en el mapa.
     }
 }
 
-class Teletrasportador {
+class Barra {
     var property position = game.at(0, 0)
+    method image() = "Barra1.png"
 }
 
+object b {
+    method dibujar(_position) {
+        const barra = new Barra (position = _position)
+        game.addVisual(barra)
+    }
+}
+class BarraH {
+    var property position = game.at(0, 0)
+    method image() = "Barra2.png"
+}
 object t {
     method dibujar(_position) {
-        const portal = new Teletrasportador (position = _position)
+        const barra = new BarraH (position = _position)
+        game.addVisual(barra)
     }
 }
 
