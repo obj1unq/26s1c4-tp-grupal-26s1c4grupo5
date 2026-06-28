@@ -27,13 +27,13 @@ object juego {
         
         self.crearMapa()
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
+        
         self.movimientoDePak()
         game.addVisual(marcador)
         game.onTick(1000, "Revisando si se completo el nivel", {self.verificarCambioDeMapa()})
-        /*
-        busqueda.agregar(blinky)
-        busqueda.comenzar()
-        */
+        busqueda.iniciador()
+        
+	    
     }
 
     method configurarTeclas(){
@@ -41,6 +41,8 @@ object juego {
 	    keyboard.right().onPressDo({pak.cambiarOrientacionSiPuede(derecha)  })
 	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
 	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
+        // keyboard.p    ().onPressDo({mapaActual.musica().pause()})
+        // keyboard.r    ().onPressDo({mapaActual.musica().resume()})
     }
 
     method configurarIntro(){

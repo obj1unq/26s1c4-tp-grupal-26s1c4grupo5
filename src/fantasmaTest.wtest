@@ -2,14 +2,5 @@ import fantasma.*
 import wollok.game.*
 
 // describe "Evaluando a los fantasmas"{
-//     const estrella = new AEstrella(posActual = nodo.position())
-//     const posicion1 = game.at(9, 6)
-//     const nodo      = new Nodo(position = game.at(12, 6), costoG = 0, costoH = 2)
-//     test "Test de heuristica"{
-//         assert.equals(5, estrella.heuristica(5,5))
-//     }
-//     test "Test de buscando"{
-//         assert.equals(posicion1, estrella.buscando())
-//     }
     
 // }

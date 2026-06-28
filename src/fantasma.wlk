@@ -3,44 +3,52 @@ import direcciones.*
 import wollok.game.*
 import juego.*
 class Fantasma{
-    var property position = game.at(0,0)
-    const presa = pak
-    method image() = "blinky.png"
-    method presa() = presa
+    
+    var property position
+
     var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
+    
+    const camino = recorrido.vueltaDesignada()
+    
+    method image() = "blinky.png"
+    
     method avanzar(){
-        self.position(recorrido.vuelta2().get(indiceAMover))
-        indiceAMover = (indiceAMover + 1) % recorrido.vuelta2().size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
+        self.position(camino.get(indiceAMover))
+        indiceAMover = (indiceAMover + 1) % camino.size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
     }
-}
-object fantasma2{
-    var property position = game.at(0,0)
-    const presa = pak
-    method image() = "blinky.png"
-    method presa() = presa
-    var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
-    method avanzar(){
-        self.position(recorrido.vuelta3().get(indiceAMover))
-        indiceAMover = (indiceAMover + 1) % recorrido.vuelta3().size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
+    method colisionar(pak){
+        pak.morir()
     }
 }
 object recorrido{
-    const vuelta = [game.at(1, 9), game.at(2, 9), game.at(3, 9), game.at(4, 9), game.at(4,  8), game.at(4, 7), 
-                    game.at(5, 7), game.at(6, 7), game.at(6, 8), game.at(6, 9), game.at(7,  9), game.at(8, 9),
-                    game.at(9, 9), game.at(10, 9),game.at(11, 9),game.at(12, 9),game.at(13, 9),game.at(13, 8),
-                    game.at(13, 7),game.at(14, 7),game.at(15, 7),game.at(15, 8),game.at(15, 9),game.at(16, 9),
-                    game.at(17, 9),game.at(18, 9),game.at(18, 8),game.at(18, 7),game.at(18, 6),game.at(18, 5),
-                    game.at(18, 4),game.at(18, 3),game.at(18, 2),game.at(18, 1),game.at(17, 1),game.at(16, 1)]
+    
+    var indiceVuelta = 0
+    
+    const vueltas = [vuelta, vuelta2, vuelta3]
+    
+    method vueltas() = vueltas
+    
+    method vueltaDesignada() {
+        indiceVuelta = indiceVuelta + 1
+        return vueltas.get(indiceVuelta - 1)
+    }
+    const vuelta = [game.at(14, 18), game.at(15, 18), game.at(16, 18), game.at(17, 18), game.at(17, 17), game.at(17, 16), 
+                    game.at(18, 16), game.at(19, 16), game.at(20, 16), game.at(20, 15), game.at(20, 14), game.at(20, 13),
+                    game.at(20, 12), game.at(19, 12), game.at(18, 12), game.at(17, 12), game.at(16, 12), game.at(15, 12),
+                    game.at(14, 12), game.at(13, 12), game.at(12, 12), game.at(11, 12), game.at(10, 12), game.at(9 , 12),
+                    game.at(8 , 12), game.at(7 , 12), game.at(7 , 13), game.at(7 , 14), game.at(7 , 15), game.at(7 , 16),
+                    game.at(8 , 16), game.at(9 , 16), game.at(10, 16), game.at(10, 17), game.at(10, 18), game.at(11, 18), 
+                    game.at(12, 18), game.at(13, 18)]
     method vuelta() = vuelta
 
-    const vuelta2 = [game.at(2, 9), game.at(3, 9), game.at(4, 9), game.at(4, 8), game.at(4, 7),
-                     game.at(3, 7), game.at(3, 6), game.at(3, 5), game.at(2, 5), game.at(1, 5), 
-                     game.at(1, 6), game.at(1, 7), game.at(1, 8), game.at(1,9)]
+    const vuelta2 = [game.at(6, 18), game.at(7, 18), game.at(8, 18), game.at(8, 17), game.at(8, 16),
+                     game.at(7, 16), game.at(7, 15), game.at(7, 14), game.at(6, 14), game.at(5, 14), 
+                     game.at(5, 15), game.at(5, 16), game.at(5, 17), game.at(5, 18)]
     method vuelta2() = vuelta2
     
-    const vuelta3 = [game.at(18, 8), game.at(18, 7), game.at(18, 6), game.at(18, 5), game.at(17, 5),
-                     game.at(16, 5), game.at(16, 6), game.at(16, 7), game.at(15, 7), game.at(15, 8), 
-                     game.at(15, 9), game.at(16, 9), game.at(17, 9), game.at(18,9)]
+    const vuelta3 = [game.at(21, 18), game.at(20, 18), game.at(19, 18), game.at(19, 17), game.at(19, 16),
+                     game.at(20, 16), game.at(20, 15), game.at(20, 14), game.at(21, 14), game.at(22, 14), 
+                     game.at(22, 15), game.at(22, 16), game.at(22, 17), game.at(22, 18)]
     method vuelta3() = vuelta3
 }
 
@@ -54,9 +62,12 @@ object busqueda {
     method eliminar(buscador) {
         buscadores.remove(buscador)
     }
-
+    method iniciador(){
+        game.schedule(3000, {self.comenzar()})
+    }
+    
     method comenzar() {
-        game.onTick(300, "Busquen, mis pequeños", {buscadores.forEach({buscador => buscador.avanzar()})})
+        game.onTick(400, "Busquen, mis pequeños", {buscadores.forEach({buscador => buscador.avanzar()})})
     }
 
     method detener() {
