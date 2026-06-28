@@ -3,112 +3,45 @@ import direcciones.*
 import wollok.game.*
 import juego.*
 class Fantasma{
-    var property position = game.at(12,6)
-    method image()
-    method avanzar()
-}
-
-object blinky inherits Fantasma{
-    override method image() = "blinky.png"
-    
-    const algt = new AEstrella(posActual = game.at(self.position().x(), self.position().y()))
-    override method avanzar() {
-        self.position(algt.buscando())
-    }
-
-}
-
-class AEstrella{
-    var property posActual
+    var property position = game.at(0,0)
     const presa = pak
-    var property listaAbierta = #{}
-    var property listaCerrada = #{}
-
-    method posPresa() = presa.position()
-    method siEsDentroDelMapaYNohayObstaculo(posicion){
-        return tablero.dentro(posicion) and !juego.hayObstaculo(posicion)
+    method image() = "blinky.png"
+    method presa() = presa
+    var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
+    method avanzar(){
+        self.position(recorrido.vuelta2().get(indiceAMover))
+        indiceAMover = (indiceAMover + 1) % recorrido.vuelta2().size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
     }
-    
-    method buscando(){
-        const actual = new Nodo(position = posActual, costoG = 0, costoH = self.heuristica(posActual.x(), posActual.y()))
-        listaAbierta.add(actual)
-        return self.hastaEncontrar()
-    }
-    method hastaEncontrar(){
-        if (listaAbierta.isEmpty()){
-            return null
-        }
-        const actual = listaAbierta.min({nodo => nodo.costoF()})
-        const parriba    =    arriba1.siguiente(actual.position())
-        const pderecha   =   derecha1.siguiente(actual.position())
-        const pabajo     =     abajo1.siguiente(actual.position())
-        const pizquierda = izquierda1.siguiente(actual.position())
-        if(actual.position() != presa.position()){
-            const costoPosible = actual.costoG() + 1
-            if (self.siEsDentroDelMapaYNohayObstaculo(parriba)){
-                self.revisandoVecino(actual, costoPosible, parriba)
-            }
-            if (self.siEsDentroDelMapaYNohayObstaculo(pderecha)){
-                self.revisandoVecino(actual, costoPosible, pderecha)
-            }
-            if (self.siEsDentroDelMapaYNohayObstaculo(pabajo)){
-                self.revisandoVecino(actual, costoPosible, pabajo)
-            }
-            if (self.siEsDentroDelMapaYNohayObstaculo(pizquierda)){
-                self.revisandoVecino(actual, costoPosible, pizquierda)
-            }
-            listaCerrada.add(actual)
-            listaAbierta.remove(actual)
-            return self.hastaEncontrar()
-        } return self.encontrando(actual)
-    }
-    method revisandoVecino(nodoAComparar, cantidadG, direccion){    
-        const enListaCerrada = listaCerrada.findOrDefault({nodo => nodo.position() == direccion}, null)
-        const enListaAbierta = listaAbierta.findOrDefault({nodo => nodo.position() == direccion}, null)
-        if (enListaCerrada != null){
-            if(enListaCerrada.costoG() > cantidadG){
-                self.cambiarGyPadre(enListaCerrada, cantidadG, nodoAComparar)
-                listaAbierta.add(enListaCerrada)
-                listaCerrada.remove(enListaCerrada)
-            }
-        
-        } else if (enListaAbierta != null){
-            if(enListaAbierta.costoG() > cantidadG){
-                self.cambiarGyPadre(enListaAbierta, cantidadG, nodoAComparar)
-            }
-        } else {
-            const nuevoNodo = self.crearNodo(direccion, cantidadG, self.heuristica(direccion.x(), direccion.y()), nodoAComparar)
-            listaAbierta.add(nuevoNodo)
-        }
-    }    
-    method encontrando(nodo){
-        if (nodo.nodoPadre() == null) {
-            return nodo.position() 
-        }
-        if (nodo.nodoPadre().position() == posActual) {
-            return nodo.position() 
-        }
-        return self.encontrando(nodo.nodoPadre())
-    }
-    method cambiarGyPadre(nodo, nuevoG, nuevoPadre){
-        nodo.costoG(nuevoG)
-        nodo.nodoPadre(nuevoPadre)
-    }
-    method crearNodo(pos, g, h, p){
-        return new Nodo(position = pos, costoG = g, costoH = h, nodoPadre = p)
-    }
-    method heuristica(posNX, posNY) = (posNX - presa.position().x()).abs() + (posNY - presa.position().y()).abs()
 }
+object fantasma2{
+    var property position = game.at(0,0)
+    const presa = pak
+    method image() = "blinky.png"
+    method presa() = presa
+    var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
+    method avanzar(){
+        self.position(recorrido.vuelta3().get(indiceAMover))
+        indiceAMover = (indiceAMover + 1) % recorrido.vuelta3().size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
+    }
+}
+object recorrido{
+    const vuelta = [game.at(1, 9), game.at(2, 9), game.at(3, 9), game.at(4, 9), game.at(4,  8), game.at(4, 7), 
+                    game.at(5, 7), game.at(6, 7), game.at(6, 8), game.at(6, 9), game.at(7,  9), game.at(8, 9),
+                    game.at(9, 9), game.at(10, 9),game.at(11, 9),game.at(12, 9),game.at(13, 9),game.at(13, 8),
+                    game.at(13, 7),game.at(14, 7),game.at(15, 7),game.at(15, 8),game.at(15, 9),game.at(16, 9),
+                    game.at(17, 9),game.at(18, 9),game.at(18, 8),game.at(18, 7),game.at(18, 6),game.at(18, 5),
+                    game.at(18, 4),game.at(18, 3),game.at(18, 2),game.at(18, 1),game.at(17, 1),game.at(16, 1)]
+    method vuelta() = vuelta
 
-class Nodo{
-    const position 
-    var property costoG
-    const costoH
-    var property nodoPadre = null
-    method position()  = position
-    method nodoPadre() = nodoPadre
-    method costoH()    = costoH
-    method costoF()    = costoG + costoH
+    const vuelta2 = [game.at(2, 9), game.at(3, 9), game.at(4, 9), game.at(4, 8), game.at(4, 7),
+                     game.at(3, 7), game.at(3, 6), game.at(3, 5), game.at(2, 5), game.at(1, 5), 
+                     game.at(1, 6), game.at(1, 7), game.at(1, 8), game.at(1,9)]
+    method vuelta2() = vuelta2
+    
+    const vuelta3 = [game.at(18, 8), game.at(18, 7), game.at(18, 6), game.at(18, 5), game.at(17, 5),
+                     game.at(16, 5), game.at(16, 6), game.at(16, 7), game.at(15, 7), game.at(15, 8), 
+                     game.at(15, 9), game.at(16, 9), game.at(17, 9), game.at(18,9)]
+    method vuelta3() = vuelta3
 }
 
 object busqueda {
@@ -123,7 +56,7 @@ object busqueda {
     }
 
     method comenzar() {
-        game.onTick(800, "Busquen, mis pequeños", {buscadores.forEach({buscador => buscador.avanzar()})})
+        game.onTick(300, "Busquen, mis pequeños", {buscadores.forEach({buscador => buscador.avanzar()})})
     }
 
     method detener() {

@@ -15,7 +15,9 @@ class Mapa {
     method muro()  = muro
     method fondo() = fondo
 }
-
+object intro inherits Mapa(muro = "Tierra.png",fondo = "FondoIntro.png"){
+    method construir(){}
+}
 object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png") {
     const dibujo =[
         [ t, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ],

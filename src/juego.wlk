@@ -4,7 +4,7 @@ import pak-man.*
 import fantasma.*
 
 object juego {    
-    var property mapaActual = mapa1
+    var property mapaActual = intro
     const obstaculos = #{}
 
     method agregarObstaculo(obstaculo){
@@ -42,6 +42,17 @@ object juego {
 	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
 	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
     }
+
+    method configurarIntro(){
+        keyboard.any().onPressDo({self.comenzarMapa1()})
+    }
+    method comenzarMapa1(){
+        mapaActual = mapa1
+        game.clear()
+        obstaculos.clear()
+        self.configurarJuego()
+    }
+
     method crearMapa(){
         mapaActual.construir()
     }
@@ -95,11 +106,11 @@ object _ {
     method dibujar(position) {}
 }
 
-
-object f {                       // coloco un fantasma en el mapa.
-    //const fantasma = new Fantasma(position = _position) // dice que esta mal pq estas intentando instanciar una clase abstracta
+object f {                       // coloco un fantasma en el mapa. 
     method dibujar(_position) {
-        game.addVisual(blinky)
+        const fantasma = new Fantasma(position = _position) 
+        game.addVisual(fantasma)
+        busqueda.agregar(fantasma)
     }
 }
 
