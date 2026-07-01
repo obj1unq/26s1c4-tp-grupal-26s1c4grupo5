@@ -1,6 +1,6 @@
 import wollok.game.*
 import juego.*
-
+import intro.*
 class Mapa {
     const muro  
     const fondo 
@@ -19,8 +19,12 @@ class Mapa {
     method puntosPorMapa() = puntosPorMapa
     // method musica() = musica
 }
-object intro inherits Mapa(muro = "Tierra.png",fondo = "FondoIntro.png", puntosPorMapa = 0){
-    method construir(){}
+object intro inherits Mapa(muro = "Tierra.png",fondo = "IntroPass.png", puntosPorMapa = 0){
+    method construir(){
+        game.addVisual(cartel)
+        game.addVisual(anyKey)
+        game.addVisual(aniPak)
+    }
 }
 object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPorMapa = 490) {
     const dibujo =[
@@ -57,8 +61,10 @@ object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPor
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
     
     method construir() {
+        // game.addVisual(y)
         self.construir(dibujo)
         self.agregarTresFantasmas()
+        // game.addVisual(mUno)
         // musica.play()
     }
     method agregarTresFantasmas(){
