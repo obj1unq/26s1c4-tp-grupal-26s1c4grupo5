@@ -2,7 +2,7 @@ import wollok.game.*
 import mapas.*
 import pak-man.*
 import fantasma.*
-
+import intro.*
 object juego {    
     var property mapaActual = intro
     var property indice = 0
@@ -43,22 +43,26 @@ object juego {
 	    
     }
 
+    method configurarIntro(){
+        keyboard.any().onPressDo({self.comenzarMapa1()})              // Saca la intro y pasa al mapa1
+        self.crearMapa()
+        animacionIntro.animarFrase()
+        aniPak.avanzar()
+    }
+
     method configurarTeclas(){
 	    keyboard.left ().onPressDo({pak.cambiarOrientacionSiPuede(izquierda)})
 	    keyboard.right().onPressDo({pak.cambiarOrientacionSiPuede(derecha)  })
 	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
 	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
-        // keyboard.p    ().onPressDo({mapaActual.musica().pause()})
-        // keyboard.r    ().onPressDo({mapaActual.musica().resume()})
-    }
-
-    method configurarIntro(){
-        keyboard.any().onPressDo({self.comenzarMapa1()})
+        // keyboard.p    ().onPressDo({mapaActual.musica().pause()})  // Pausa la musica
+        // keyboard.r    ().onPressDo({mapaActual.musica().resume()}) // Resume la musica
     }
     method comenzarMapa1(){
         mapaActual = mapa1
         game.clear()
         obstaculos.clear()
+        busqueda.buscadores().clear()
         self.configurarJuego()
     }
 
@@ -71,7 +75,7 @@ object juego {
     }
 
     method detenerRecorridoDePak() {
-    game.removeTickEvent("recorrido constante de pak")
+        game.removeTickEvent("recorrido constante de pak")
     }
 
     method eventoPerderVida(){
@@ -130,7 +134,6 @@ class Moneda {
     method image() = "monedaChicaSinFondo.png"
 
     method colisionar(pak){
-        console.println("Puntos " + pak.puntos())
         game.removeVisual(self)
         pak.sumarPuntos(valor)
     }
@@ -146,7 +149,7 @@ object m {
 
 class Muro {
     var property position = game.at(0,0)
-    method image() = juego.mapaActual().muro()
+    method image() = "Tierra.png"
 }
 
 object p {                       // le digo al Pak-Man su posicion en el mapa.
@@ -200,3 +203,16 @@ object marcador {
     method textColor() = "000080FF" //azulOscuro
 }
 */
+
+
+
+// object y{
+//     const position = game.at(0,0)
+//     method position() = position
+// }
+
+//object mUno{
+//    const position = game.at(4,9)
+//    method position() = position
+//    method image() = "muroMapa1.png"
+//}
