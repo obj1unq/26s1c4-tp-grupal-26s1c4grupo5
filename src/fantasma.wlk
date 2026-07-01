@@ -5,6 +5,7 @@ import juego.*
 class Fantasma{
     
     var property position
+    const property posicionInicial 
 
     var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
     
@@ -17,7 +18,11 @@ class Fantasma{
         indiceAMover = (indiceAMover + 1) % camino.size() // Voy aumentando el valor del indice y cuando llegue al final, vuelve a 0
     }
     method colisionar(pak){
-        pak.morir()
+        juego.eventoPerderVida()
+    }
+    method reaparecer(){
+        position = posicionInicial
+        indiceAMover = 0
     }
 }
 object recorrido{
@@ -73,4 +78,12 @@ object busqueda {
     method detener() {
         game.removeTickEvent("Busquen, mis pequeños")
     }
+
+    method reiniciarFantasmas(){
+        self.detener()
+        self.reaparecerFantasmas()
+    }
+
+    method reaparecerFantasmas() = self.buscadores().forEach({fantasma => fantasma.reaparecer()})
+
 }

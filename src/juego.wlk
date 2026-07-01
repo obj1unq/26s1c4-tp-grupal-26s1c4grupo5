@@ -28,8 +28,8 @@ object juego {
         self.crearMapa()
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         
-        self.movimientoDePak()
-        game.addVisual(marcador)
+        self.comenzarRecorridoDePak()
+        //game.addVisual(marcador)
         game.onTick(1000, "Revisando si se completo el nivel", {self.verificarCambioDeMapa()})
         busqueda.iniciador()
         
@@ -59,9 +59,55 @@ object juego {
         mapaActual.construir()
     }
     
-    method movimientoDePak(){
-        game.onTick(300, "movimiento constante de pak", {pak.mover()})
+    method comenzarRecorridoDePak(){
+        game.onTick(300, "recorrido constante de pak", {pak.mover()})
     }
+
+    method detenerRecorridoDePak() {
+    game.removeTickEvent("recorrido constante de pak")
+    }
+
+    method eventoPerderVida(){
+        pak.perderVida()
+        if(pak.sigueVivo()){
+            self.reiniciarNivel()
+        } else {
+            self.gameOver()
+        }
+    }
+
+    method reiniciarNivel(){
+        //resetea el movimiento constante de pak para q no se acumule
+        self.detenerRecorridoDePak()
+
+        //reiniciar personajes
+        busqueda.reiniciarFantasmas()
+        pak.reiniciarse()
+
+        //intervalo de reinicio
+        game.schedule(2000, {
+            pak.habilitarMovimiento()
+            busqueda.comenzar()
+            self.comenzarRecorridoDePak()        
+        })
+    }
+
+    method gameOver(){
+        self.detenerRecorridoDePak()
+        busqueda.detener()
+        game.say(pak, "PERDI")
+        //self.reiniciarJuego()
+    }
+    /*
+    method reiniciarJuego() {
+        game.clear()
+        obstaculos.clear()
+        mapaActual = mapa1
+        //busqueda.reiniciarJuego()
+        pak.reiniciarJuego()
+        self.configurarJuego()
+    }
+    */
 }
 
 object c {                       // coloco una moneda en el mapa.
@@ -100,7 +146,7 @@ object p {                       // le digo al Pak-Man su posicion en el mapa.
     method dibujar(position) {  
         pak.position(position)
         game.addVisual(pak)
-        //pak.posicionInicial(position)
+        pak.posicionInicial(position)
     }
 }
 
@@ -110,7 +156,7 @@ object _ {
 
 object f {                       // coloco un fantasma en el mapa. 
     method dibujar(_position) {
-        const fantasma = new Fantasma(position = _position) 
+        const fantasma = new Fantasma(position = _position, posicionInicial = _position) 
         game.addVisual(fantasma)
         busqueda.agregar(fantasma)
     }
@@ -137,7 +183,7 @@ object t {
         game.addVisual(barra)
     }
 }
-
+/*
 object marcador {
 
     method position() = game.at(1, 10)
@@ -146,3 +192,4 @@ object marcador {
 
     method textColor() = "000080FF" //azulOscuro
 }
+*/
