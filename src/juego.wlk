@@ -5,8 +5,15 @@ import fantasma.*
 
 object juego {    
     var property mapaActual = intro
+    var property indice = 0
+    const mapas = [mapa1, mapa2, mapa3]
     const obstaculos = #{}
 
+    method siguienteMapa(){ 
+        self.indice(indice + 1) 
+        return mapas.get(self.indice())
+    }
+    
     method agregarObstaculo(obstaculo){
         obstaculos.add(obstaculo)
     }
@@ -14,8 +21,8 @@ object juego {
     method hayObstaculo(posicion) =  obstaculos.any({ obstaculo => obstaculo.position() == posicion})
 
     method verificarCambioDeMapa() {        // Por ahora solo sirve para cambiar del mapa1 al 2.
-        if (pak.puntos() == 100) {
-            mapaActual = mapa2
+        if (pak.puntos() == mapaActual.puntosPorMapa()) {
+            mapaActual = self.siguienteMapa()
             game.clear()
             obstaculos.clear()
             self.configurarJuego()
