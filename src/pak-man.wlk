@@ -3,6 +3,7 @@ object pak {
 
     var property position = game.at(0, 0)
     var property orientacionConst = quieto
+    var property puedeMoverse = true
     var property tieneBocaAbierta = false
     var property puntos = 0
     var property vidas = 3
@@ -14,14 +15,14 @@ object pak {
 
     method cambiarOrientacionSiPuede(futuraDireccion){
 
-        if (self.puedeIr(futuraDireccion)){
+        if (puedeMoverse && self.puedeIr(futuraDireccion)){
           orientacionConst = futuraDireccion
         }
     }
 
     method mover(){
 
-        if (self.puedeIr(orientacionConst)){
+        if (puedeMoverse && self.puedeIr(orientacionConst)){
             position = orientacionConst.siguiente(position)
             self.alternarBoca()
         }
@@ -45,14 +46,20 @@ object pak {
         return "boca-abierta"
     }
 
-    method morir(){
-      
-      if (self.vidas() > 1){
-          self.reaparecer()
-        }
-        //juego.perder()
-        puntos = 0
+    method perderVida(){
+      vidas -= 1
     }
+
+    method sigueVivo() = vidas > 0
+
+    method reiniciarse(){
+      self.desabilitarMovimiento()
+      self.reaparecer()
+    }
+
+    method desabilitarMovimiento(){puedeMoverse = false}
+
+    method habilitarMovimiento(){puedeMoverse = true}
     
     method reaparecer(){
 
@@ -60,6 +67,12 @@ object pak {
       position = posicionInicial
       orientacionConst = quieto
       game.addVisual(self)
+    }
+
+    method reiniciarJuego(){
+      vidas = 3
+      puntos = 0
+      self.reiniciarse()
     }
 
     method sumarPuntos(cantidad){ puntos += cantidad}
