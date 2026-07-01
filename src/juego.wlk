@@ -134,6 +134,7 @@ class Moneda {
     method image() = "monedaChicaSinFondo.png"
 
     method colisionar(pak){
+        console.println("Puntos " + pak.puntos())
         game.removeVisual(self)
         pak.sumarPuntos(valor)
     }
@@ -149,7 +150,7 @@ object m {
 
 class Muro {
     var property position = game.at(0,0)
-    method image() = "Tierra.png"
+    method image() = juego.mapaActual().muro()
 }
 
 object p {                       // le digo al Pak-Man su posicion en el mapa.
