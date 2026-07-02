@@ -2,6 +2,7 @@ import wollok.game.*
 import juego.*
 import mapas.*
 import pak-man.*
+import objetos.*
 
 describe "Obstaculos" {
   test "colisionar con moneda suma 10 puntos" {
@@ -34,9 +35,9 @@ describe "Obstaculos" {
     assert.equals("Tierra.png", muro.image())
   }
   
-  
-  test "puede cambiar el mapa actual" {
-    juego.mapaActual(mapa2)
+  test "puede cambiar el mapa actual" {  
+    juego.siguienteMapa()
+    juego.siguienteMapa()
     
     assert.equals(mapa2, juego.mapaActual())
   }
@@ -44,7 +45,7 @@ describe "Obstaculos" {
   test "mapa3 agrega obstaculos al construirse" {
     juego.mapaActual(mapa3)
     
-    juego.crearMapa()
+    juego.configurarJuego()
     
     assert.that(juego.hayObstaculo(game.at(0, 0)))
   }

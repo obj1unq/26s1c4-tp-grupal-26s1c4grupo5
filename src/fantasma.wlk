@@ -1,5 +1,4 @@
 import pak-man.*
-import direcciones.*
 import wollok.game.*
 import juego.*
 class Fantasma{

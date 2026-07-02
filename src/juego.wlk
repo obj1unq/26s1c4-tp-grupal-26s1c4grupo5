@@ -3,15 +3,17 @@ import mapas.*
 import pak-man.*
 import fantasma.*
 import intro.*
+import menu.*
+
 object juego {    
     var property mapaActual = intro
     var property indice = 0
-    const mapas = [mapa1, mapa2, mapa3]
     const obstaculos = #{}
+    const mapas = [intro, mapa3]
 
     method siguienteMapa(){ 
         self.indice(indice + 1) 
-        return mapas.get(self.indice())
+        mapaActual = mapas.get(self.indice())
     }
     
     method agregarObstaculo(obstaculo){
@@ -22,7 +24,7 @@ object juego {
 
     method verificarCambioDeMapa() {        // Por ahora solo sirve para cambiar del mapa1 al 2.
         if (pak.puntos() == mapaActual.puntosPorMapa()) {
-            mapaActual = self.siguienteMapa()
+            self.siguienteMapa()
             game.clear()
             obstaculos.clear()
             self.configurarJuego()
@@ -30,44 +32,30 @@ object juego {
     }
 
     method configurarJuego(){
-        self.configurarTeclas()
+        menu.configurarTeclas()
         
-        self.crearMapa()
+        mapaActual.construir()
 	    game.onCollideDo(pak, {algo => algo.colisionar(pak)})
         
         self.comenzarRecorridoDePak()
         //game.addVisual(marcador)
         game.onTick(1000, "Revisando si se completo el nivel", {self.verificarCambioDeMapa()})
         busqueda.iniciador()
-        
-	    
     }
 
     method configurarIntro(){
-        keyboard.any().onPressDo({self.comenzarMapa1()})              // Saca la intro y pasa al mapa1
-        self.crearMapa()
+        keyboard.any().onPressDo({self.comenzarMapa()})              // Saca la intro y pasa al mapa1
+        mapaActual.construir()
         animacionIntro.animarFrase()
         aniPak.avanzar()
     }
 
-    method configurarTeclas(){
-	    keyboard.left ().onPressDo({pak.cambiarOrientacionSiPuede(izquierda)})
-	    keyboard.right().onPressDo({pak.cambiarOrientacionSiPuede(derecha)  })
-	    keyboard.up   ().onPressDo({pak.cambiarOrientacionSiPuede(arriba)   })
-	    keyboard.down ().onPressDo({pak.cambiarOrientacionSiPuede(abajo)    })
-        // keyboard.p    ().onPressDo({mapaActual.musica().pause()})  // Pausa la musica
-        // keyboard.r    ().onPressDo({mapaActual.musica().resume()}) // Resume la musica
-    }
-    method comenzarMapa1(){
-        mapaActual = mapa1
+    method comenzarMapa(){
+        self.siguienteMapa()
         game.clear()
         obstaculos.clear()
         busqueda.buscadores().clear()
         self.configurarJuego()
-    }
-
-    method crearMapa(){
-        mapaActual.construir()
     }
     
     method comenzarRecorridoDePak(){
@@ -88,15 +76,12 @@ object juego {
     }
 
     method reiniciarNivel(){
-        //resetea el movimiento constante de pak para q no se acumule
-        self.detenerRecorridoDePak()
+        self.detenerRecorridoDePak()        //resetea el movimiento constante de pak para q no se acumule.
 
-        //reiniciar personajes
-        busqueda.reiniciarFantasmas()
+        busqueda.reiniciarFantasmas()       //reiniciar personajes.
         pak.reiniciarse()
 
-        //intervalo de reinicio
-        game.schedule(2000, {
+        game.schedule(2000, {               //intervalo de reinicio.
             pak.habilitarMovimiento()
             busqueda.comenzar()
             self.comenzarRecorridoDePak()        
@@ -114,6 +99,7 @@ object juego {
         game.clear()
         obstaculos.clear()
         mapaActual = mapa1
+        self.indice(0)
         //busqueda.reiniciarJuego()
         pak.reiniciarJuego()
         self.configurarJuego()
@@ -121,79 +107,6 @@ object juego {
     */
 }
 
-object c {                       // coloco una moneda en el mapa.
-    method dibujar(_position) {
-        const coins = new Moneda (position = _position)
-        game.addVisual(coins)
-    }
-}
-
-class Moneda {
-    var property position = game.at(0,0)
-    const valor = 10
-    method image() = "monedaChicaSinFondo.png"
-
-    method colisionar(pak){
-        console.println("Puntos " + pak.puntos())
-        game.removeVisual(self)
-        pak.sumarPuntos(valor)
-    }
-}
-
-object m {
-    method dibujar(_position) {  // coloco un muro en el mapa.
-        const muro = new Muro(position = _position)    // crear una clase para los muros.
-        juego.agregarObstaculo(muro)
-        game.addVisual(muro)
-    }
-}
-
-class Muro {
-    var property position = game.at(0,0)
-    method image() = juego.mapaActual().muro()
-}
-
-object p {                       // le digo al Pak-Man su posicion en el mapa.
-    method dibujar(position) {  
-        pak.position(position)
-        game.addVisual(pak)
-        pak.posicionInicial(position)
-    }
-}
-
-object _ {
-    method dibujar(position) {}
-}
-
-object f {                       // coloco un fantasma en el mapa. 
-    method dibujar(_position) {
-        const fantasma = new Fantasma(position = _position, posicionInicial = _position) 
-        game.addVisual(fantasma)
-        busqueda.agregar(fantasma)
-    }
-}
-
-class Barra {
-    var property position = game.at(0, 0)
-    method image() = "Barra1.png"
-}
-
-object b {
-    method dibujar(_position) {
-        const barra = new Barra (position = _position)
-        game.addVisual(barra)
-    }
-}
-class BarraH {
-    var property position = game.at(0, 0)
-    method image() = "Barra2.png"
-}
-object t {
-    method dibujar(_position) {
-        const barra = new BarraH (position = _position)
-        game.addVisual(barra)
-    }
-}
 /*
 object marcador {
 

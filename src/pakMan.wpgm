@@ -8,7 +8,7 @@ program PakManGame {
     game.width(28) //configuro el ancho segun la cantidad de columnas del dibujo
 	game.cellSize(50) 		
     juego.configurarIntro()
-	game.boardGround(juego.mapaActual().fondo())
+	game.boardGround("IntroPass.png")
 
 	game.start()
 }

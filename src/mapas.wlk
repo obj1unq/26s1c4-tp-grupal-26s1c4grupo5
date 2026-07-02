@@ -1,9 +1,11 @@
 import wollok.game.*
 import juego.*
 import intro.*
+import objetos.*
+import menu.*
+
 class Mapa {
     const muro  
-    const fondo 
     const puntosPorMapa
     method construir(diseño) {
         //itero por el ancho y luego por el alto.
@@ -12,32 +14,33 @@ class Mapa {
                 diseño.get(y).get(x).dibujar(game.at(x,y))  //obtengo el dibujante de la cordenada que corresponde a la iteracion y le pido que dibuje en esa cordenada
             })
         })
+        cartel.position(game.at(0,24))
+        game.addVisual(cartel)
     }
-    // const musica = game.sound("TheSynthWars.mp3")
+    const musica = game.sound("TheSynthWars.mp3")
     method muro()   = muro
-    method fondo()  = fondo
     method puntosPorMapa() = puntosPorMapa
-    // method musica() = musica
+    method musica() = musica
 }
-object intro inherits Mapa(muro = "Tierra.png",fondo = "IntroPass.png", puntosPorMapa = 0){
+object intro inherits Mapa(muro = "", puntosPorMapa = 0){
     method construir(){
         game.addVisual(cartel)
         game.addVisual(anyKey)
         game.addVisual(aniPak)
     }
 }
-object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPorMapa = 490) {
+object mapa1 inherits Mapa (muro = "Tierra.png", puntosPorMapa = 490) {
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 28
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 27
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 26
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 25
+        [ h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 25
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 24
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 23
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 22
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 21
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 20
+        [ h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 20
         [ _, _, _, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, _, _, _ ], // 19
         [ _, _, _, _, m, _, c, _, c, m, c, _, c, _, c, _, c, _, m, _, c, _, _, m, _, _, _, _ ], // 18
         [ _, _, _, _, m, c, m, m, _, m, _, m, m, m, m, m, m, c, m, c, m, m, _, m, _, _, _, _ ], // 17
@@ -52,19 +55,18 @@ object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPor
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 8
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 7
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 6
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 5
+        [ _, h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 5
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 4
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 3
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 2
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 1
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ]  // 0
+        [ v, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 1
+        [ g, h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, v, _, _, _ ]  // 0
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
     
     method construir() {
         // game.addVisual(y)
         self.construir(dibujo)
         self.agregarTresFantasmas()
-        // game.addVisual(mUno)
         // musica.play()
     }
     method agregarTresFantasmas(){
@@ -75,14 +77,14 @@ object mapa1 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPor
     method dibujo() = dibujo // metodo unicamente utilizado para test.
 }
 
-object mapa2 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPorMapa = 1410) {
+object mapa2 inherits Mapa (muro = "Tierra.png", puntosPorMapa = 1410) {
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 28
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 27
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 26
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 25
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 24
+        [ h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 24
         [ _, _, _, _, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, _, _, _ ], // 23
         [ _, _, _, _, _, m, _, c, _, c, _, c, _, c, _, c, _, c, _, c, _, c, _, m, _, _, _, _ ], // 22
         [ _, _, _, _, _, m, c, m, m, m, m, m, m, m, c, m, m, m, m, m, m, m, c, m, _, _, _, _ ], // 21
@@ -105,8 +107,8 @@ object mapa2 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPor
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 4
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 3
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 2
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 1
-        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ]  // 0
+        [ v, v, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 1
+        [ g, h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, v, _, _, _ ]  // 0
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
     
     method construir() {
@@ -114,15 +116,15 @@ object mapa2 inherits Mapa (muro = "Tierra.png", fondo = "fondo1.png", puntosPor
     }
 }
 
-object mapa3 inherits Mapa (muro = "nube.png", fondo = "Fondo-cielo.png", puntosPorMapa = 1500) {
+object mapa3 inherits Mapa (muro = "Tierra.png", puntosPorMapa = 1500) {
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
-        [ m, m, m, m, m, m, m, m, m, m, m, _, m, m, m, m, _, m, m, m, m, m, m, m, m, m, m, m ], // 28
-        [ m, _, _, _, _, _, _, _, _, _, m, _, m, _, _, m, _, m, _, _, _, _, _, _, _, _, _, m ], // 27
-        [ m, _, m, _, _, m, _, m, m, _, m, _, m, _, _, m, _, m, _, m, m, _, m, _, _, m, _, m ], // 26
-        [ m, _, m, _, _, m, _, _, m, _, m, _, m, _, _, m, _, m, _, m, _, _, m, _, _, m, _, m ], // 25
-        [ m, _, m, _, m, m, _, _, m, _, m, m, m, _, _, m, m, m, _, m, _, _, m, m, _, m, _, m ], // 24
-        [ m, _, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m, _, m ], // 23
+        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 28
+        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 27
+        [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 26
+        [ h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 25
+        [ h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 24
+        [ m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ], // 23
         [ m, _, m, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, m, _, m ], // 22
         [ m, _, _, _, _, _, _, _, _, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, m ], // 21
         [ m, _, m, _, m, m, m, m, m, m, _, m, _, m, m, _, m, _, m, m, m, m, m, m, _, m, _, m ], // 20
@@ -145,7 +147,7 @@ object mapa3 inherits Mapa (muro = "nube.png", fondo = "Fondo-cielo.png", puntos
         [ m, _, m, _, _, _, _, _, _, _, m, _, _, _, _, _, _, m, _, _, _, _, _, _, _, m, _, m ], // 3
         [ m, _, m, m, m, _, _, _, m, m, m, _, m, _, _, m, _, m, m, m, _, _, _, m, m, m, _, m ], // 2
         [ m, _, _, _, _, _, _, _, _, _, _, _, m, _, _, m, _, _, _, _, _, _, _, _, _, _, _, m ], // 1
-        [ m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ]  // 0
+        [ g, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m ]  // 0
     ].reverse() //Es necesario el reverse porque el y=0 en realidad corresponde a la altura mas alta
     
     method construir() {
@@ -153,7 +155,7 @@ object mapa3 inherits Mapa (muro = "nube.png", fondo = "Fondo-cielo.png", puntos
     }
 }
 
-object asignarMapa inherits Mapa (muro = "", fondo = "", puntosPorMapa = 0) {
+object asignarMapa inherits Mapa (muro = "", puntosPorMapa = 0) {
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 28
