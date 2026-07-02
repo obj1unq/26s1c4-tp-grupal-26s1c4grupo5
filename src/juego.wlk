@@ -9,7 +9,7 @@ object juego {
     var property mapaActual = intro
     var property indice = 0
     const obstaculos = #{}
-    const mapas = [intro, mapa3]
+    const mapas = [intro, mapa1, mapa2, mapa3]
 
     method siguienteMapa(){ 
         self.indice(indice + 1) 

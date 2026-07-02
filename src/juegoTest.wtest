@@ -47,6 +47,6 @@ describe "Obstaculos" {
     
     juego.configurarJuego()
     
-    assert.that(juego.hayObstaculo(game.at(0, 0)))
+    assert.that(juego.hayObstaculo(game.at(1, 0)))
   }
 }
