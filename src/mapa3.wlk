@@ -3,6 +3,7 @@ import mapas.*
 import objetos.*
 
 object mapa3 inherits Mapa (puntosPorMapa = 1500) {
+    const muro = new Muro(position = game.at(5,5), imagen = "muroMapa2.png") // creo un muro con la imagen de todas las paredes.
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
         [ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ ], // 28
@@ -21,7 +22,7 @@ object mapa3 inherits Mapa (puntosPorMapa = 1500) {
         [ m, _, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m, _, m ], // 15
         [ m, _, m, m, m, m, m, m, m, _, m, m, m, _, _, m, m, m, _, m, m, m, m, m, m, m, _, m ], // 14
         [ m, _, _, _, _, _, _, _, _, _, m, _, _, _, _, _, _, m, _, _, _, _, _, _, _, _, _, m ], // 13
-        [ m, m, m, m, m, _, m, _, m, _, m, _, _, _, _, _, _, m, _, m, _, m, _, m, m, m, _, m ], // 12
+        [ m, _, m, m, m, _, m, _, m, _, m, _, _, _, _, _, _, m, _, m, _, m, _, m, m, m, _, m ], // 12
         [ m, _, _, _, m, _, m, _, m, _, m, m, m, m, m, m, m, m, _, m, _, m, _, m, _, _, _, m ], // 11
         [ m, _, m, _, m, _, m, _, m, _, _, _, _, _, _, _, _, _, _, m, _, m, _, m, _, m, _, m ], // 10
         [ m, _, m, _, m, _, m, _, m, _, m, _, m, _, _, m, _, m, _, m, _, m, _, m, _, m, _, m ], // 9
@@ -64,9 +65,8 @@ object mapa3 inherits Mapa (puntosPorMapa = 1500) {
         game.at(0,11), game.at(4,11), game.at(6,11), game.at(8,11), game.at(10,11),game.at(11,11),game.at(12,11),
         game.at(13,11),game.at(14,11),game.at(15,11),game.at(16,11),game.at(17,11),game.at(19,11),game.at(21,11),
         game.at(23,11),game.at(27,11),
-        game.at(0,12), game.at(1,12), game.at(2,12), game.at(3,12), game.at(4,12), game.at(6,12), game.at(8,12),
+        game.at(0,12), game.at(1,12), game.at(27,12), game.at(3,12), game.at(4,12), game.at(6,12), game.at(8,12),
         game.at(10,12),game.at(17,12),game.at(19,12),game.at(21,12),game.at(23,12),game.at(24,12),game.at(25,12),
-        game.at(27,12),
         game.at(0,13), game.at(10,13),game.at(17,13),game.at(27,13),
         game.at(0,14), game.at(2,14), game.at(3,14), game.at(4,14), game.at(5,14), game.at(6,14), game.at(7,14),
         game.at(8,14), game.at(10,14),game.at(11,14),game.at(12,14),game.at(15,14),game.at(16,14),game.at(17,14),
@@ -98,5 +98,6 @@ object mapa3 inherits Mapa (puntosPorMapa = 1500) {
 
     method construir() {
         self.construir(dibujo)
+        game.addVisual(muro)
     }
 }
