@@ -9,7 +9,6 @@ object c {                       // coloco una moneda en el mapa.
         game.addVisual(coins)
     }
 }
-
 class Moneda {
     var property position = game.at(0,0)
     const valor = 10
@@ -23,16 +22,13 @@ class Moneda {
 }
 
 object m {
-    method dibujar(_position) {  // coloco un muro en el mapa.
-        const muro = new Muro(position = _position)    // crear una clase para los muros.
-        juego.agregarObstaculo(muro)
-        game.addVisual(muro)
-    }
+    method dibujar(_position) {} // no hace nada, pero se usa para ver visualmente donde estan los muros en los mapas
 }
-
 class Muro {
-    var property position = game.at(0,0)
-    method image() = juego.mapaActual().muro()
+    const imagen
+    const position    = game.at(0,0)
+    method position() = position
+    method image()    = imagen
 }
 
 object p {                       // le digo al Pak-Man su posicion en el mapa.
@@ -42,11 +38,9 @@ object p {                       // le digo al Pak-Man su posicion en el mapa.
         pak.posicionInicial(position)
     }
 }
-
 object _ {
     method dibujar(position) {}
 }
-
 object f {                       // coloco un fantasma en el mapa. 
     method dibujar(_position) {
         const fantasma = new Fantasma(position = _position, posicionInicial = _position) 
@@ -59,7 +53,6 @@ class Barra {
     var property position = game.at(0, 0)
     method image() = "Barra1.png"
 }
-
 object v inherits Barra (){
     method dibujar(_position) {
         const barra = new Barra (position = _position)

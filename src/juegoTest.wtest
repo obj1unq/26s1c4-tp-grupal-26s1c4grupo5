@@ -1,52 +1,34 @@
 import wollok.game.*
 import juego.*
 import mapas.*
+import mapa1.*
+import mapa3.*
 import pak-man.*
 import objetos.*
 
 describe "Obstaculos" {
   test "colisionar con moneda suma 10 puntos" {
     const moneda = new Moneda()
-    
     moneda.colisionar(pak)
-    
     assert.equals(10, pak.puntos())
-    console.println("Puntos " + pak.puntos())
   }
   
-  test "agregar obstaculo lo registra en el juego" {
-    const muro = new Muro(position = game.at(3, 4))
-    
-    juego.agregarObstaculo(muro)
-    
-    assert.that(juego.hayObstaculo(game.at(3, 4)))
-  }
-  
-  test "no hay obstaculo en posicion vacia" {
-    assert.notThat(juego.hayObstaculo(game.at(10, 9)))
-  }
-  
-  test "muro usa la imagen del mapa actual" {
-    // Capaz se puede sacar
-    juego.mapaActual(mapa1)
-    
-    const muro = new Muro()
-    
-    assert.equals("Tierra.png", muro.image())
-  }
-  
-  test "puede cambiar el mapa actual" {  
+  test "hay obstaculos en el primer mapa" {
     juego.siguienteMapa()
-    juego.siguienteMapa()
-    
-    assert.equals(mapa2, juego.mapaActual())
+    assert.that(juego.hayObstaculo(game.at(4, 9)))
   }
   
-  test "mapa3 agrega obstaculos al construirse" {
+  test "no hay obstaculo en la intro" {
+    assert.equals([], juego.mapaActual().obstaculos())
+  }
+  
+  test "puede pasar al siguiente mapa" {  
+    juego.siguienteMapa()
+    assert.equals(mapa1, juego.mapaActual())
+  }
+  
+  test "hay obstaculos en el mapa3" {
     juego.mapaActual(mapa3)
-    
-    juego.configurarJuego()
-    
     assert.that(juego.hayObstaculo(game.at(1, 0)))
   }
 }

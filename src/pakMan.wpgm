@@ -1,7 +1,6 @@
 import juego.*
 import wollok.game.*
 
-
 program PakManGame {
 	game.title("Pak-Man")	
 	game.height(29) //configuro el alto segun la cantidad de filas del dibujo
