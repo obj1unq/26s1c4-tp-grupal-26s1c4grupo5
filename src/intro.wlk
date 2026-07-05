@@ -1,4 +1,13 @@
 import wollok.game.*
+import mapas.*
+
+object intro inherits Mapa(puntosPorMapa = 0){
+    method construir(){
+        game.addVisual(cartel)
+        game.addVisual(anyKey)
+        game.addVisual(aniPak)
+    }
+}
 
 object animacionIntro{
     var indice = 0
