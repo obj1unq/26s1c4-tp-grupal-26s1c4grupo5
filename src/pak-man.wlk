@@ -9,73 +9,81 @@ object pak {
     var property vidas = 3
     var posicionInicial = game.at(0, 0)
 
-    method image() = "pak-" + orientacionConst.nombreDir() + "-" + self.moverBoca() + ".png"
+    method image() = "pak-" + orientacionConst.nombreDir() + "-boca-" + self.moverBoca() + ".png"
 
     method posicionInicial(posicion){ posicionInicial = posicion }
 
     method cambiarOrientacionSiPuede(futuraDireccion){
-
-        if (puedeMoverse && self.puedeIr(futuraDireccion)){
+      if (self.puedeMoverseHacia(futuraDireccion)){
           orientacionConst = futuraDireccion
-        }
+      }
     }
 
     method mover(){
-
-        if (puedeMoverse && self.puedeIr(orientacionConst)){
-            position = orientacionConst.siguiente(position)
-            self.alternarBoca()
-        }
+      if (self.puedeMoverseHacia(orientacionConst)){
+          position = orientacionConst.siguiente(position)
+          self.alternarBoca()
+      }
     }
+
+    method puedeMoverseHacia(dir) = puedeMoverse and self.puedeIr(dir)
 
     method puedeIr(direccion) = (!juego.hayObstaculo(direccion.siguiente(position)))
 
     method alternarBoca(){
-
-      if (self.estaEnMovimiento()){
         tieneBocaAbierta = !tieneBocaAbierta
-      }
     }
 
     method estaEnMovimiento() = self.puedeIr(orientacionConst)
 
     method moverBoca(){
       if (tieneBocaAbierta){
-        return "boca-cerrada"
-      }
-        return "boca-abierta"
+        return "cerrada"
+        } 
+        return "abierta" 
     }
 
     method perderVida(){
       vidas -= 1
+      juego.actualizarVidasDePak(self.vidas())
     }
 
-    method sigueVivo() = vidas > 0
+    method tieneMasVidas() = vidas > 0
 
     method reiniciarse(){
-      self.desabilitarMovimiento()
       self.reaparecer()
     }
 
-    method desabilitarMovimiento(){puedeMoverse = false}
-
-    method habilitarMovimiento(){puedeMoverse = true}
+    method puedeMoverse(bool){puedeMoverse = bool}
     
     method reaparecer(){
 
-      game.removeVisual(self)
-      position = posicionInicial
-      orientacionConst = quieto
-      game.addVisual(self)
+      self.desaparecer()
+      self.volverAPosicionInicial()
+      self.aparecer()
+      self.puedeMoverse(true)
     }
 
     method reiniciarJuego(){
       vidas = 3
       puntos = 0
-      self.reiniciarse()
+      self.volverAPosicionInicial()
+      self.puedeMoverse(false)
     }
 
-    method sumarPuntos(cantidad){ puntos += cantidad}
+    method volverAPosicionInicial(){
+      position = posicionInicial
+      orientacionConst = quieto
+    }
+
+    method sumarPuntos(cantidad){
+      puntos += cantidad
+      juego.actualizarPuntuacion(puntos)
+    }
+
+    method desaparecer(){game.removeVisual(self)}
+
+    method aparecer(){game.addVisual(self)}
 }
 object quieto{
 

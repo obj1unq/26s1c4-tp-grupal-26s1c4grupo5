@@ -17,7 +17,6 @@ class Moneda {
     method colisionar(pak){
         pak.sumarPuntos(valor)
         game.removeVisual(self)
-        console.println("Puntos " + pak.puntos())
     }
 }
 
@@ -75,5 +74,82 @@ object g {
     method dibujar(_position) {
         self.position(_position)
         game.addVisual(self)
+    }
+}
+
+object s { // es el marcador (vidas y puntos)
+    method dibujar(position){
+        marcador.construir(position)
+    }
+
+}
+
+
+class Numero {
+    var property position
+    var property valor = 0
+    var property indice
+
+    method image() = valor.toString() + ".png"
+
+    method actualizar(puntos){
+        valor = puntos.div(self.divisor()) % 10
+    }
+
+    method divisor(){
+    if(indice == 0) return 1000
+    if(indice == 1) return 100
+    if(indice == 2) return 10
+    return 1
+    }
+}
+
+class Vida {
+    var property position
+
+    method image() = "pak-derecha-boca-abierta.png"
+}
+
+object marcador {
+    const vidas = []
+    const numeros = []
+
+    method construir(posicion){
+        self.crearNumeros(posicion)
+        self.crearVidas(posicion)
+    }
+
+    method crearNumeros(posicion){
+        
+        (0..3).forEach({i => 
+            const numero = new Numero(
+                position = posicion.right(i+4),
+                indice = i) 
+            numeros.add(numero)
+            game.addVisual(numero)
+        })
+    }
+
+    method actualizarPuntuacion(puntos){
+        numeros.forEach({n => n.actualizar(puntos)})
+    }
+
+    method crearVidas(posicion){
+        var indice = 0
+        (0..2).forEach({v => 
+            const vida = new Vida(
+                position = posicion.right(indice))
+            indice += 1
+            vidas.add(vida)
+            game.addVisual(vida)
+            })
+    }
+
+    method actualizarVidas(cantDeVidas){
+        if(vidas.size() > cantDeVidas){
+            const ultVida = vidas.last()
+            game.removeVisual(ultVida)
+            vidas.remove(ultVida)
+        }
     }
 }
