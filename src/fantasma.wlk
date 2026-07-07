@@ -26,7 +26,7 @@ class Fantasma{
 }
 object recorrido{
     
-    var indiceVuelta = 0
+    var property indiceVuelta = 0
     
     const vueltas = [vuelta, vuelta2, vuelta3]
     
@@ -78,9 +78,16 @@ object busqueda {
         game.removeTickEvent("Busquen, mis pequeños")
     }
 
-    method reiniciarFantasmas(){
+    method reorganizar(){
         self.detener()
         self.reaparecerFantasmas()
+    }
+
+    method reiniciarFantasmas(){
+        self.detener()
+        buscadores.clear()
+        self.reaparecerFantasmas()
+        recorrido.indiceVuelta(0)
     }
 
     method reaparecerFantasmas() = self.buscadores().forEach({fantasma => fantasma.reaparecer()})
