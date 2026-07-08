@@ -28,12 +28,12 @@ object recorrido{
                      game.at(22, 15), game.at(22, 16), game.at(22, 17), game.at(22, 18)]
 
     const vuelta4 = [game.at(14, 22), game.at(15, 22), game.at(16, 22), game.at(17, 22), game.at(18, 22), 
-                     game.at(19, 22), game.at(20, 22), game.at(21, 22), game.at(22, 22), game.at(22, 23), 
-                     game.at(22, 24), game.at(21, 24), game.at(20, 24), game.at(19, 24), game.at(18, 24), 
-                     game.at(17, 24), game.at(16, 24), game.at(16, 25), game.at(16, 26), game.at(15, 26), 
-                     game.at(14, 26), game.at(13, 26), game.at(12, 26), game.at(12, 25), game.at(12, 24), 
-                     game.at(11, 24), game.at(10, 24), game.at(9 , 24), game.at(8 , 24), game.at(7 , 24), 
-                     game.at(6 , 24), game.at(6 , 23), game.at(6 , 22), game.at(7 , 22), game.at(8 , 22), 
+                     game.at(19, 22), game.at(20, 22), game.at(21, 22), game.at(22, 22), game.at(22, 21), 
+                     game.at(22, 20), game.at(21, 20), game.at(20, 20), game.at(19, 20), game.at(18, 20), 
+                     game.at(17, 20), game.at(16, 20), game.at(16, 19), game.at(16, 18), game.at(15, 18), 
+                     game.at(14, 18), game.at(13, 18), game.at(12, 18), game.at(12, 19), game.at(12, 20), 
+                     game.at(11, 20), game.at(10, 20), game.at(9 , 20), game.at(8 , 20), game.at(7 , 20), 
+                     game.at(6 , 20), game.at(6 , 21), game.at(6 , 22), game.at(7 , 22), game.at(8 , 22), 
                      game.at(9 , 22), game.at(10, 22), game.at(11, 22), game.at(12, 22), game.at(13, 22)]
 
     const vuelta5 = [game.at(14,  6), game.at(15,  6), game.at(16,  6), game.at(17,  6), game.at(18,  6), 
@@ -45,18 +45,18 @@ object recorrido{
                      game.at(6 ,  8), game.at(6 ,  7), game.at(6 ,  6), game.at(7 ,  6), game.at(8 ,  6), 
                      game.at(9 ,  6), game.at(10,  6), game.at(11,  6), game.at(12,  6), game.at(13,  6)]
 
-    const vuelta6 = [game.at(10, 12), game.at(11, 12), game.at(12, 12), game.at(13, 12), game.at(14, 12), 
-                     game.at(14, 11), game.at(14, 10), game.at(15, 10), game.at(16, 10), game.at(17, 10), 
-                     game.at(18, 10), game.at(18, 11), game.at(18, 12), game.at(18, 13), game.at(18, 14), 
-                     game.at(18, 15), game.at(18, 16), game.at(18, 17), game.at(18, 18), game.at(17, 18), 
-                     game.at(16, 18), game.at(15, 18), game.at(14, 18), game.at(14, 17), game.at(14, 16), 
-                     game.at(13, 16), game.at(12, 16), game.at(11, 16), game.at(10, 16), game.at(9 , 16), 
-                     game.at(8 , 16), game.at(7 , 16), game.at(6 , 16), game.at(6 , 17), game.at(6 , 18), 
-                     game.at(5 , 18), game.at(4 , 18), game.at(3 , 18), game.at(2 , 18), game.at(2 , 17), 
-                     game.at(2 , 16), game.at(2 , 15), game.at(2 , 14), game.at(2 , 13), game.at(2 , 12), 
-                     game.at(2 , 11), game.at(2 , 10), game.at(3 , 10), game.at(4 , 10), game.at(5 , 10), 
-                     game.at(6 , 10), game.at(6 , 11), game.at(6 , 12), game.at(7 , 12), game.at(8 , 12), 
-                     game.at(9 , 12)]
+    const vuelta6 = [game.at(14, 16), game.at(15, 16), game.at(16, 16), game.at(17, 16), game.at(18, 16),
+                     game.at(18, 17), game.at(18, 18), game.at(19, 18), game.at(20, 18), game.at(21, 18),
+                     game.at(22, 18), game.at(22, 17), game.at(22, 16), game.at(22, 15), game.at(22, 14),
+                     game.at(22, 13), game.at(22, 12), game.at(22, 11), game.at(22, 10), game.at(21, 10),
+                     game.at(20, 10), game.at(19, 10), game.at(18, 10), game.at(18, 11), game.at(18, 12),
+                     game.at(17, 12), game.at(16, 12), game.at(15, 12), game.at(14, 12), game.at(13, 12),
+                     game.at(12, 12), game.at(11, 12), game.at(10, 12), game.at(10, 11), game.at(10, 10),
+                     game.at(9 , 10), game.at(8 , 10), game.at(7 , 10), game.at(6 , 10), game.at(6 , 11),
+                     game.at(6 , 12), game.at(6 , 13), game.at(6 , 14), game.at(6 , 15), game.at(6 , 16),
+                     game.at(6 , 17), game.at(6 , 18), game.at(7 , 18), game.at(8 , 18), game.at(9 , 18),
+                     game.at(10, 18), game.at(10, 17), game.at(10, 16), game.at(11, 16), game.at(12, 16),
+                     game.at(13, 16)]
     
     const vuelta7 = [game.at(1 , 13), game.at(1 , 14), game.at(1 , 15), game.at(1 , 16), game.at(1 , 17), 
                      game.at(1 , 18), game.at(1 , 19), game.at(1 , 20), game.at(1 , 21), game.at(2 , 21), 
