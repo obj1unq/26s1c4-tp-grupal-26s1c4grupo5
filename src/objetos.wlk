@@ -77,12 +77,6 @@ object g {
     }
 }
 
-object s { // es el marcador (vidas y puntos)
-    method dibujar(position){
-        marcador.construir(position)
-    }
-
-}
 class Numero {
     var property position
     var property valor = 0
@@ -107,14 +101,10 @@ object marcador {
     const vidas = []
     const numeros = []
 
-    method construir(posicion){
-        self.crearNumeros(posicion)
-        self.crearVidas(posicion)
-    }
     method crearNumeros(posicion){   
         (0..3).forEach({i => 
             const numero = new Numero(
-                position = posicion.right(i+4),
+                position = posicion.right(i+3),
                 indice = i) 
             numeros.add(numero)
             game.addVisual(numero)

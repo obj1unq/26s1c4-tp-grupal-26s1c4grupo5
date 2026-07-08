@@ -14,7 +14,7 @@ class Mapa {
         cartel.position(game.at(0,24))
         game.addVisual(cartel)
         marcador.crearVidas(game.at(22,24))
-        marcador.crearNumeros(game.at(23,24))
+        marcador.crearNumeros(game.at(19,26))
     }
     method puntosPorMapa() = puntosPorMapa
     method obstaculos()    =[]
