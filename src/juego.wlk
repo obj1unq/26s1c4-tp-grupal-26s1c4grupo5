@@ -23,6 +23,9 @@ object juego {
 
     method siguienteMapa(){ 
         self.indice(indice + 1) 
+        if (self.indice() == 4){
+            self.indice(0)
+        }
         mapaActual = mapas.get(self.indice())
     }
 
@@ -100,4 +103,3 @@ object juego {
 
     method actualizarVidasDePak(vidas){marcador.actualizarVidas(vidas)}
 }   
-
