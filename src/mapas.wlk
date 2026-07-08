@@ -1,7 +1,7 @@
 import wollok.game.*
 import intro.*
 import objetos.*
-
+import fantasma.*
 class Mapa {
     const puntosPorMapa
     method construir(diseño) {
@@ -18,6 +18,12 @@ class Mapa {
     }
     method puntosPorMapa() = puntosPorMapa
     method obstaculos()    =[]
+    method agregarFantasmas(){
+        busqueda.buscadores().clear()
+        f.dibujar(game.at(0, 0))
+        f.dibujar(game.at(0, 0))
+        f.dibujar(game.at(0, 0))
+    }
 }
 
 

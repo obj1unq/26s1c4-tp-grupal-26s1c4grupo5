@@ -63,13 +63,9 @@ object mapa1 inherits Mapa (puntosPorMapa = 490) {
 
     method construir() {
         self.construir(dibujo)
-        self.agregarTresFantasmas()
+        self.agregarFantasmas()
         game.addVisual(muro)
     }
-    method agregarTresFantasmas(){
-        f.dibujar(game.at(13,18))
-        f.dibujar(game.at(5 ,18))
-        f.dibujar(game.at(22,18))
-    }
+    
     method muro() = muro // metodo unicamente utilizado para test.
 }
