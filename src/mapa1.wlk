@@ -3,7 +3,7 @@ import mapas.*
 import intro.*
 import objetos.*
 
-object mapa1 inherits Mapa (puntosPorMapa = 490) {
+object mapa1 inherits Mapa (puntosPorMapa = 0490) {
     const muro = new Muro(position = game.at(4,9), imagen = "muroMapa1.png") // creo un muro con la imagen de todas las paredes.
     const dibujo =[
     //    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 

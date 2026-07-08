@@ -1,7 +1,7 @@
 import wollok.game.*
 import mapas.*
 
-object intro inherits Mapa(puntosPorMapa = 0){
+object intro inherits Mapa(puntosPorMapa = 0000){
     method construir(){
         game.addVisual(cartel)
         game.addVisual(anyKey)

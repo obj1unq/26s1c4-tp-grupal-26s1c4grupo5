@@ -99,12 +99,12 @@ class Vida {
 }
 object marcador {
     const vidas = []
-    const numeros = []
+    var property numeros = []
 
     method crearNumeros(posicion){   
         (0..3).forEach({i => 
             const numero = new Numero(
-                position = posicion.right(i+3),
+                position = posicion.right(i *2 -2),
                 indice = i) 
             numeros.add(numero)
             game.addVisual(numero)
