@@ -37,9 +37,6 @@ object busqueda {
     method eliminar(buscador) {
         buscadores.remove(buscador)
     }
-    method iniciador(){
-        game.schedule(3000, {self.comenzar()})
-    }
     
     method comenzar() {
         game.onTick(400, "Busquen, mis pequeños", {buscadores.forEach({buscador => buscador.avanzar()})})

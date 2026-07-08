@@ -36,7 +36,7 @@ object juego {
         prota.puedeMoverse(true)
         self.comenzarRecorridoDeProta(prota)
         game.onTick(1000, "Revisando si se completo el nivel", {self.verificarCambioDeMapa()})
-        busqueda.iniciador()
+        busqueda.comenzar()
     }
 
     method configurarTeclas(){
