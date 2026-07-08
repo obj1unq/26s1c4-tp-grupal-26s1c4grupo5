@@ -48,5 +48,5 @@ object busqueda {
     self.reaparecerFantasmas()
     recorrido.indiceVuelta(0)
   }
-  method reaparecerFantasmas() = self.buscadores().forEach({fantasma => fantasma.reaparecer()})
+  method reaparecerFantasmas(){ self.buscadores().forEach({fantasma => fantasma.reaparecer()}) }
 }
