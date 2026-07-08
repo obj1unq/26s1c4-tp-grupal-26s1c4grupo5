@@ -12,13 +12,13 @@ object c {
 }
 class Moneda {
   const valor           = 10
-  const sonidoMoneda    = game.sound("sonidoMoneda.mp3")
   var property position = game.at(0, 0)
   
+  method sonidoMoneda() {game.sound("sonidoMoneda.mp3").play()}
   method image() = "monedaChicaSinFondo.png"
   
   method colisionar(pak) {
-    sonidoMoneda.play()
+    self.sonidoMoneda()
     pak.sumarPuntos(valor)
     game.removeVisual(self)
   }
