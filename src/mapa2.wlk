@@ -1,6 +1,7 @@
 import wollok.game.*
 import mapas.*
 import objetos.*
+import fantasma.*
 
 object mapa2 inherits Mapa (puntosPorMapa = 1410) {
     const muro = new Muro(position = game.at(5,5), imagen = "muroMapa2.png") // creo un muro con la imagen de todas las paredes.
@@ -76,6 +77,7 @@ object mapa2 inherits Mapa (puntosPorMapa = 1410) {
     
     method construir() {
         self.construir(dibujo)
+        self.agregarFantasmas()
         game.addVisual(muro)
     }
 }
