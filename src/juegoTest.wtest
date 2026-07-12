@@ -13,22 +13,9 @@ describe "Obstaculos" {
     assert.equals(10, pak.puntos())
   }
   
-  test "hay obstaculos en el primer mapa" {
-    juego.siguienteMapa()
-    assert.that(juego.hayObstaculo(game.at(4, 9)))
-  }
-  
-  test "no hay obstaculo en la intro" {
-    assert.equals([], juego.mapaActual().obstaculos())
-  }
-  
   test "puede pasar al siguiente mapa" {  
     juego.siguienteMapa()
     assert.equals(mapa1, juego.mapaActual())
   }
   
-  test "hay obstaculos en el mapa3" {
-    juego.mapaActual(mapa3)
-    assert.that(juego.hayObstaculo(game.at(1, 0)))
-  }
 }

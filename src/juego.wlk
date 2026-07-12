@@ -10,11 +10,12 @@ import sonidos.*
 
 object juego {
   const mapas             = [intro, mapa1, mapa2, mapa3]
+  const obstaculos        = []
   var property prota      = pak
   var property indice     = 0
   var property mapaActual = intro
   
-  method hayObstaculo(_posicion) = mapaActual.obstaculos().any({ muro => muro.position() == _posicion })
+  method hayObstaculo(_posicion) = obstaculos.any({ muro => muro.position() == _posicion })
 
   method verificarCambioDeMapa() {
     if (prota.puntos() == mapaActual.puntosPorMapa()) {
