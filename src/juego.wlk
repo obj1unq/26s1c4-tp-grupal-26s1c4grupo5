@@ -5,7 +5,8 @@ import mapa2.*
 import mapa3.*
 import pak-man.*
 import fantasma.*
-import objetos.*
+import marcador.*
+import sonidos.*
 
 object juego {
   const mapas             = [intro, mapa1, mapa2, mapa3]
@@ -13,17 +14,11 @@ object juego {
   var property indice     = 0
   var property mapaActual = intro
   
-  method hayObstaculo(_posicion) = mapaActual.obstaculos().any({ position => position == _posicion })
+  method hayObstaculo(_posicion) = mapaActual.obstaculos().any({ muro => muro.position() == _posicion })
 
-  method sonidoReinicio() {
-    game.sound("sonidoReinicio.mp3").play()
-  }
-  method sonidoAvanzarNivel() {
-    game.sound("sonidoAvanzarNivel.mp3").play()
-  }
   method verificarCambioDeMapa() {
     if (prota.puntos() == mapaActual.puntosPorMapa()) {
-      self.sonidoAvanzarNivel()
+    //   sonidoAvanzarNivel.sonido().play()
       self.siguienteMapa()
       game.clear()
       self.configurarJuego()
@@ -40,23 +35,18 @@ object juego {
     game.onCollideDo(prota, { algo => algo.colisionar(prota) })
     prota.puedeMoverse(true)
     self.comenzarRecorridoDeProta(prota)
-    game.onTick(
-      1000,
-      "Revisando si se completo el nivel",
-      { self.verificarCambioDeMapa() }
-    )
+    game.onTick(1000, "Revisando si se completo el nivel", { self.verificarCambioDeMapa() })
     busqueda.comenzar()
   }
   method configurarTeclas() {
-    keyboard.left().onPressDo({ prota.cambiarOrientacionSiPuede(izquierda) })
+    keyboard.left ().onPressDo({ prota.cambiarOrientacionSiPuede(izquierda) })
     keyboard.right().onPressDo({ prota.cambiarOrientacionSiPuede(derecha) })
-    keyboard.up().onPressDo({ prota.cambiarOrientacionSiPuede(arriba) })
-    keyboard.down().onPressDo({ prota.cambiarOrientacionSiPuede(abajo) })
-    keyboard.r().onPressDo({ self.reiniciarJuego() })
+    keyboard.up   ().onPressDo({ prota.cambiarOrientacionSiPuede(arriba) })
+    keyboard.down ().onPressDo({ prota.cambiarOrientacionSiPuede(abajo) })
+    keyboard.r    ().onPressDo({ self.reiniciarJuego() })
   }
   method configurarIntro() {
-    keyboard.any().onPressDo({ self.verificarCambioDeMapa() })
-    // Saca la intro y pasa al mapa1
+    keyboard.any().onPressDo({ self.verificarCambioDeMapa() }) // Saca la intro y pasa al mapa1
     mapaActual.construir()
     animacionIntro.animarFrase()
     aniPak.position(game.at(0, 14))
@@ -85,7 +75,7 @@ object juego {
     busqueda.detener()
     prota.desaparecer()
     game.schedule(3000, { self.reiniciarJuego() })
-    game.schedule(1500, { self.sonidoReinicio() })
+    // game.schedule(1500, { sonidoReinicio.sonido().play() })
   }
   method reiniciarJuego() {
     game.clear()
