@@ -2,15 +2,14 @@ import pak-man.*
 import wollok.game.*
 import juego.*
 import recorrido.*
+import sonidos.*
+
 class Fantasma{
   var property position
   const property posicionInicial 
-
-    var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido
+  var indiceAMover = 0  // Creo un indice para moverme a la siguiente posicion del recorrido    
+  const camino = recorrido.vueltaDesignada()
     
-    const camino = recorrido.vueltaDesignada()
-    
-  method sonidoMuerte(){game.sound("sonidoMuerte.mp3").play()}
   method image() = "blinky.png"
     
   method avanzar(){
@@ -19,7 +18,7 @@ class Fantasma{
   }
   method colisionar(pak){
     juego.eventoPerderVida()
-    self.sonidoMuerte()
+    // sonidoMuerte.sonido().play()
   }
   method reaparecer(){
     position     = posicionInicial

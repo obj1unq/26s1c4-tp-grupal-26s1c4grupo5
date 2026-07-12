@@ -3,10 +3,10 @@ import intro.*
 import objetos.*
 import fantasma.*
 import pak-man.*
+import marcador.*
 
 class Mapa {
   const puntosPorMapa
-  method obstaculos()    = []
   method puntosPorMapa() = puntosPorMapa
 
   method construir(diseño) { //itero por el ancho y luego por el alto.
