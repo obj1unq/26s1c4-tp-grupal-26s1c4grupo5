@@ -7,12 +7,14 @@ import marcador.*
 
 class Mapa {
   const puntosPorMapa
+  const obstaculos       = []
+  method obstaculos()    = obstaculos
   method puntosPorMapa() = puntosPorMapa
 
   method construir(diseño) { //itero por el ancho y luego por el alto.
     (0 .. game.width() - 1).forEach({ x => 
       (0 .. game.height() - 1).forEach({y => 
-        diseño.get(y).get(x).dibujar(game.at(x,y))})  //obtengo el dibujante de la cordenada que corresponde a la iteracion y le pido que dibuje en esa cordenada
+        diseño.get(y).get(x).dibujar(game.at(x,y), self)})  //obtengo el dibujante de la cordenada que corresponde a la iteracion y le pido que dibuje en esa cordenada
         })
         cartel.position(game.at(0,24))
         game.addVisual(cartel)
@@ -22,9 +24,9 @@ class Mapa {
   }
   method agregarFantasmas(){
     busqueda.buscadores().clear()
-    f.dibujar(game.at(0, 0))
-    f.dibujar(game.at(0, 0))
-    f.dibujar(game.at(0, 0))
+    f.dibujar(game.at(0, 0), self)
+    f.dibujar(game.at(0, 0), self)
+    f.dibujar(game.at(0, 0), self)
   }
 }
 
