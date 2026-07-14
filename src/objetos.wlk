@@ -5,7 +5,7 @@ import sonidos.*
 import fantasma.*
 
 object c { // coloco una moneda en el mapa.
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     const coins = new Moneda(position = _position)
     game.addVisual(coins)
   }
@@ -24,9 +24,9 @@ class Moneda {
 }
 
 object m {
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     const muro = new Muro (position = _position)
-    juego.obstaculos.add(muro)
+    mapa.obstaculos().add(muro)
   }
 }
 class Muro {
@@ -38,7 +38,7 @@ class Muro {
 }
 
 object p { // le digo al Pak-Man su posicion en el mapa.
-  method dibujar(position) {
+  method dibujar(position, mapa) {
     pak.position(position)
     game.addVisual(pak)
     pak.posicionInicial(position)
@@ -46,11 +46,11 @@ object p { // le digo al Pak-Man su posicion en el mapa.
 }
 
 object _ {
-  method dibujar(position) {}
+  method dibujar(position, mapa) {}
 }
 
 object f {  // coloco un fantasma en el mapa. 
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     const fantasma = new Fantasma(position = _position, posicionInicial = _position)
     game.addVisual(fantasma)
     busqueda.agregar(fantasma)
@@ -62,7 +62,7 @@ class Barra {
   method image() = "Barra1.png"
 }
 object v inherits Barra {
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     const barra = new Barra(position = _position)
     game.addVisual(barra)
   }
@@ -72,7 +72,7 @@ class BarraH {
   method image() = "Barra2.png"
 }
 object h inherits Barra {
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     const barra = new BarraH(position = _position)
     game.addVisual(barra)
   }
@@ -83,7 +83,7 @@ object g {
   
   method image() = "fondo11.png"
   
-  method dibujar(_position) {
+  method dibujar(_position, mapa) {
     self.position(_position)
     game.addVisual(self)
   }
