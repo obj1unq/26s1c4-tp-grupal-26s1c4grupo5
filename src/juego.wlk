@@ -58,6 +58,10 @@ object juego {
   method detenerRecorridoDeProta() {
     game.removeTickEvent("recorrido constante de pak")
   }
+  method reiniciarMovimientoDeProta(pak){
+    self.detenerRecorridoDeProta()
+    self.comenzarRecorridoDeProta(pak)
+  }
   method eventoPerderVida() {
     prota.perderVida()
     if (prota.tieneMasVidas()) self.reiniciarNivel() else self.gameOver()
@@ -73,7 +77,7 @@ object juego {
   method gameOver() {
     self.detenerRecorridoDeProta()
     busqueda.detener()
-    prota.desaparecer()
+    self.desaparecer(prota)
     game.schedule(3000, { self.reiniciarJuego() })
     // game.schedule(1500, { sonidoReinicio.sonido().play() })
   }
@@ -82,7 +86,7 @@ object juego {
     mapaActual = intro
     self.indice(0)
     busqueda.reiniciarFantasmas()
-    prota.reiniciarJuego()
+    prota.reiniciarEstado()
     self.configurarIntro()
   }
   method actualizarPuntuacion(numero) {
@@ -91,4 +95,6 @@ object juego {
   method actualizarVidasDePak(vidas) {
     marcador.actualizarVidas(vidas)
   }
+  method desaparecer(pj){game.removeVisual(pj)}
+  method aparecer(pj){game.addVisual(pj)}
 }

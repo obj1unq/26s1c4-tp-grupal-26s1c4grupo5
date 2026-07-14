@@ -26,6 +26,7 @@ object pak {
     method cambiarOrientacionSiPuede(futuraDireccion){
       if (self.puedeMoverseHacia(futuraDireccion)){
           orientacionConst = futuraDireccion
+          juego.reiniciarMovimientoDeProta(self)
       }
     }
     method mover(){
@@ -46,12 +47,12 @@ object pak {
     }
     method puedeMoverse(bool){puedeMoverse = bool}
     method reaparecer(){
-      self.desaparecer()
+      juego.desaparecer(self)
       self.volverAPosicionInicial()
-      self.aparecer()
+      juego.aparecer(self)
       self.puedeMoverse(true)
     }
-    method reiniciarJuego(){
+    method reiniciarEstado(){
       vidas = 3
       puntos = 0
       self.volverAPosicionInicial()
@@ -65,8 +66,6 @@ object pak {
       puntos += cantidad
       juego.actualizarPuntuacion(puntos)
     }
-    method desaparecer(){game.removeVisual(self)}
-    method aparecer(){game.addVisual(self)}
 }
 
 object quieto{
